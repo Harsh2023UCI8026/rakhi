@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1298,17 +1298,18 @@
             alert('You have been logged out');
         }
 
-        // Render real users
+        // Render real users - FIXED FUNCTION
         function renderUsers() {
             // Refresh users from localStorage
             users = JSON.parse(localStorage.getItem('rakhiUsers')) || [];
+            console.log('Total registered users:', users.length);
             
             if (users.length === 0) {
                 usersContainer.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-users-slash"></i>
                         <h3>No Registered Users Yet</h3>
-                        <p>Be the first to register and start connecting with Rakhi siblings! Once other users register, they will appear here.</p>
+                        <p>Be the first to register and start connecting with Rakhi siblings!</p>
                         <button class="btn btn-primary" id="registerNowBtn" style="margin-top: 1.5rem;">
                             <i class="fas fa-user-plus"></i> Register Now
                         </button>
@@ -1318,64 +1319,67 @@
                 return;
             }
             
-            let html = '<div class="users-grid">';
-            
             // Filter out current user
-            const otherUsers = users.filter(user => 
-                !currentUser || user.id !== currentUser.id
-            );
+            const otherUsers = currentUser 
+                ? users.filter(user => user.id !== currentUser.id)
+                : users;
+            
+            console.log('Other users to display:', otherUsers.length);
             
             if (otherUsers.length === 0) {
-                html = `
+                usersContainer.innerHTML = `
                     <div class="empty-state">
                         <i class="fas fa-user-plus"></i>
                         <h3>No Other Users Registered Yet</h3>
                         <p>You are currently the only registered user. Invite others to join!</p>
                     </div>
                 `;
-            } else {
-                otherUsers.forEach(user => {
-                    const isConnected = connections.some(conn => 
-                        (conn.user1 === currentUser?.id && conn.user2 === user.id) || 
-                        (conn.user1 === user.id && conn.user2 === currentUser?.id)
-                    );
-                    
-                    html += `
-                        <div class="user-card">
-                            <div class="user-header">
-                                <div class="user-avatar-lg">${user.name.charAt(0)}</div>
-                                <h3 class="user-name">${user.name}</h3>
-                                <div class="user-gender">${user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}, ${Math.floor(Math.random() * 10) + 20}</div>
-                            </div>
-                            <div class="user-body">
-                                <div class="user-info">
-                                    <span><i class="fas fa-map-marker-alt"></i> ${user.location}</span>
-                                    <span><i class="fas fa-star"></i> ${(Math.random() + 4).toFixed(1)}</span>
-                                </div>
-                                <p class="user-bio">Looking for a ${user.lookingFor === 'brother' ? 'brother' : 'sister'} to celebrate Rakhi with.</p>
-                                <div class="user-actions">
-                                    ${isConnected && currentUser ? `
-                                        <button class="action-btn btn-message" onclick="openChat('${user.id}')">
-                                            <i class="fas fa-comment"></i> Message
-                                        </button>
-                                    ` : currentUser ? `
-                                        <button class="action-btn btn-connect" onclick="sendRequest('${user.id}')">
-                                            <i class="fas fa-user-plus"></i> Connect
-                                        </button>
-                                    ` : `
-                                        <button class="action-btn btn-connect" onclick="alert('Please log in to connect')">
-                                            <i class="fas fa-user-plus"></i> Connect
-                                        </button>
-                                    `}
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += '</div>';
+                return;
             }
             
+            let html = '<div class="users-grid">';
+            
+            otherUsers.forEach(user => {
+                // Check if connected
+                const isConnected = connections.some(conn => 
+                    (conn.user1 === currentUser?.id && conn.user2 === user.id) || 
+                    (conn.user1 === user.id && conn.user2 === currentUser?.id)
+                );
+                
+                html += `
+                    <div class="user-card">
+                        <div class="user-header">
+                            <div class="user-avatar-lg">${user.name.charAt(0)}</div>
+                            <h3 class="user-name">${user.name}</h3>
+                            <div class="user-gender">${user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}, ${Math.floor(Math.random() * 10) + 20}</div>
+                        </div>
+                        <div class="user-body">
+                            <div class="user-info">
+                                <span><i class="fas fa-map-marker-alt"></i> ${user.location}</span>
+                                <span><i class="fas fa-star"></i> ${(Math.random() + 4).toFixed(1)}</span>
+                            </div>
+                            <p class="user-bio">Looking for a ${user.lookingFor === 'brother' ? 'brother' : 'sister'} to celebrate Rakhi with.</p>
+                            <div class="user-actions">
+                                ${isConnected && currentUser ? `
+                                    <button class="action-btn btn-message" onclick="openChat('${user.id}')">
+                                        <i class="fas fa-comment"></i> Message
+                                    </button>
+                                ` : currentUser ? `
+                                    <button class="action-btn btn-connect" onclick="sendRequest('${user.id}')">
+                                        <i class="fas fa-user-plus"></i> Connect
+                                    </button>
+                                ` : `
+                                    <button class="action-btn btn-connect" onclick="alert('Please log in to connect')">
+                                        <i class="fas fa-user-plus"></i> Connect
+                                    </button>
+                                `}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += '</div>';
             usersContainer.innerHTML = html;
         }
 
@@ -1522,14 +1526,12 @@
             
             const user = users.find(u => u.id === userId);
             
-            // Create chat container if it doesn't exist
+            // Create chat container
             chatContainer.innerHTML = `
                 <div class="chat-container">
                     <div class="chat-sidebar">
                         <h3><i class="fas fa-user-friends"></i> My Rakhi Siblings</h3>
-                        <div class="sibling-list" id="siblingList">
-                            <!-- Siblings will be listed here -->
-                        </div>
+                        <div class="sibling-list" id="siblingList"></div>
                     </div>
                     <div class="chat-main">
                         <div class="chat-header">
@@ -1550,9 +1552,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="chat-messages" id="chatMessages">
-                            <!-- Messages will appear here -->
-                        </div>
+                        <div class="chat-messages" id="chatMessages"></div>
                         <div class="chat-input">
                             <input type="text" id="messageInput" placeholder="Type a message...">
                             <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
@@ -1655,7 +1655,7 @@
             
             if (!messageText) return;
             
-            // Create chat ID (combination of both user IDs sorted)
+            // Create chat ID
             const chatId = [currentUser.id, receiverId].sort().join('_');
             
             // Initialize message history if needed
@@ -1752,4 +1752,4 @@
         window.openChat = openChat;
     </script>
 </body>
-</html>
+</html> 
