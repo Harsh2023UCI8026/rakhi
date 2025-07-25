@@ -748,6 +748,55 @@
             margin: 0 auto;
         }
 
+        /* Notification Alert */
+        .notification-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            transform: translateX(110%);
+            transition: transform 0.4s ease-out;
+        }
+
+        .notification-alert.show {
+            transform: translateX(0);
+        }
+
+        .notification-alert i {
+            font-size: 1.8rem;
+            color: var(--primary);
+        }
+
+        .notification-alert-content h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .notification-alert-content p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .notification-alert-close {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.3s;
+        }
+
+        .notification-alert-close:hover {
+            color: var(--primary);
+        }
+
         /* Footer */
         footer {
             background: linear-gradient(to right, var(--secondary), var(--primary));
@@ -939,6 +988,18 @@
     </style>
 </head>
 <body>
+    <!-- Notification Alert -->
+    <div class="notification-alert" id="notificationAlert">
+        <i class="fas fa-bell"></i>
+        <div class="notification-alert-content">
+            <h4>New Notification</h4>
+            <p id="notificationMessage">You have a new connection request!</p>
+        </div>
+        <button class="notification-alert-close" id="closeNotification">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="logo">
@@ -1171,6 +1232,9 @@
         const registerNowBtn = document.getElementById('registerNowBtn');
         const completeRegistration = document.getElementById('completeRegistration');
         const userActions = document.getElementById('userActions');
+        const notificationAlert = document.getElementById('notificationAlert');
+        const notificationMessage = document.getElementById('notificationMessage');
+        const closeNotification = document.getElementById('closeNotification');
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -1178,7 +1242,34 @@
             renderUsers();
             renderNotifications();
             renderChat();
+            
+            // Notification alert close button
+            closeNotification.addEventListener('click', function() {
+                notificationAlert.classList.remove('show');
+            });
+            
+            // Check if there are pending notifications for current user
+            if (currentUser) {
+                const pendingNotifications = notifications.filter(n => 
+                    n.receiverId === currentUser.id && n.status === 'pending'
+                );
+                
+                if (pendingNotifications.length > 0) {
+                    showNotification("You have pending connection requests! Check your notifications.");
+                }
+            }
         });
+
+        // Show notification alert
+        function showNotification(message) {
+            notificationMessage.textContent = message;
+            notificationAlert.classList.add('show');
+            
+            // Auto hide after 5 seconds
+            setTimeout(() => {
+                notificationAlert.classList.remove('show');
+            }, 5000);
+        }
 
         // Update header based on login state
         function updateHeader() {
@@ -1281,6 +1372,16 @@
                 renderUsers();
                 renderNotifications();
                 renderChat();
+                
+                // Check for pending notifications
+                const pendingNotifications = notifications.filter(n => 
+                    n.receiverId === currentUser.id && n.status === 'pending'
+                );
+                
+                if (pendingNotifications.length > 0) {
+                    showNotification("You have pending connection requests! Check your notifications.");
+                }
+                
                 alert(`Welcome back, ${user.name}!`);
             } else {
                 alert('Invalid email or password');
@@ -1298,11 +1399,10 @@
             alert('You have been logged out');
         }
 
-        // Render real users - FIXED FUNCTION
+        // Render real users
         function renderUsers() {
             // Refresh users from localStorage
             users = JSON.parse(localStorage.getItem('rakhiUsers')) || [];
-            console.log('Total registered users:', users.length);
             
             if (users.length === 0) {
                 usersContainer.innerHTML = `
@@ -1323,8 +1423,6 @@
             const otherUsers = currentUser 
                 ? users.filter(user => user.id !== currentUser.id)
                 : users;
-            
-            console.log('Other users to display:', otherUsers.length);
             
             if (otherUsers.length === 0) {
                 usersContainer.innerHTML = `
@@ -1408,8 +1506,16 @@
             notifications.push(newNotification);
             localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
             
-            alert(`Connection request sent to ${receiver.name}! They will be notified.`);
-            renderNotifications();
+            alert(`Connection request sent to ${receiver.name}! They will be notified in their notifications section.`);
+            
+            // If receiver is currently logged in, show notification alert
+            const receiverLoggedIn = users.some(u => 
+                u.id === userId && currentUser?.id === userId
+            );
+            
+            if (receiverLoggedIn) {
+                showNotification(`${currentUser.name} sent you a connection request!`);
+            }
         }
 
         // Render notifications
@@ -1502,6 +1608,15 @@
                 renderNotifications();
                 renderUsers();
                 renderChat();
+                
+                // Show notification to sender if they are logged in
+                const senderLoggedIn = users.some(u => 
+                    u.id === notifications[notifIndex].senderId && currentUser?.id === notifications[notifIndex].senderId
+                );
+                
+                if (senderLoggedIn) {
+                    showNotification(`${currentUser.name} accepted your connection request!`);
+                }
             }
         }
 
@@ -1698,6 +1813,15 @@
             
             notifications.push(newNotification);
             localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
+            
+            // If receiver is currently logged in, show notification alert
+            const receiverLoggedIn = users.some(u => 
+                u.id === receiverId && currentUser?.id === receiverId
+            );
+            
+            if (receiverLoggedIn) {
+                showNotification(`${currentUser.name} sent you a message!`);
+            }
         }
 
         // Render chat section
