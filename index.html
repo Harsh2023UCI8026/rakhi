@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakhi Bandhan - Find Your Rakhi Sibling</title>
+    <title>Rakhi Bandhan Connect - Find Your Rakhi Sibling</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -45,117 +45,6 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: var(--white);
-            border-radius: 20px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            position: relative;
-            animation: modalFadeIn 0.5s ease;
-        }
-
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            padding: 25px;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-        }
-
-        .modal-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: transparent;
-            border: none;
-            color: var(--white);
-            font-size: 24px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .form-group input, 
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            transition: var(--transition);
-        }
-
-        .form-group input:focus, 
-        .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
-            outline: none;
-        }
-
-        .form-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .form-footer a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
         }
 
         /* Header Styles */
@@ -249,6 +138,25 @@
             align-items: center;
         }
 
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
         .btn {
             padding: 12px 28px;
             border-radius: 50px;
@@ -321,6 +229,170 @@
             align-items: center;
             font-size: 12px;
             font-weight: bold;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--white);
+            margin: 5% auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+        }
+
+        .modal-title i {
+            display: block;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            border-radius: 20px;
+            height: 120px;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+            outline: none;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-footer p {
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .form-footer a {
+            color: var(--accent);
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+            color: var(--text);
+        }
+
+        .or-divider:before, .or-divider:after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #ddd;
+        }
+
+        .or-divider span {
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .facebook {
+            background: #3b5998;
+        }
+
+        .google {
+            background: #db4437;
         }
 
         /* Hero Section */
@@ -835,6 +907,39 @@
             text-align: center;
         }
 
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .form-group input:focus, 
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+            outline: none;
+        }
+
         .stories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -898,164 +1003,10 @@
             font-family: 'Playfair Display', serif;
         }
 
-        /* CTA Section */
-        .cta {
-            padding: 120px 0;
-            background: linear-gradient(135deg, var(--accent) 0%, #d8317d 100%);
-            color: var(--white);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none"><circle cx="100" cy="100" r="90" fill="rgba(255,255,255,0.1)" /></svg>');
-            background-size: 100% 100%;
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            margin-bottom: 30px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta p {
-            font-size: 1.3rem;
-            max-width: 700px;
-            margin: 0 auto 40px;
-            line-height: 1.7;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: var(--white);
-            padding: 80px 0 30px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
-            position: relative;
-            padding-bottom: 10px;
-            color: var(--gold);
-        }
-
-        .footer-column h3:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--accent);
-        }
-
-        .footer-column ul {
-            list-style: none;
-        }
-
-        .footer-column ul li {
-            margin-bottom: 15px;
-        }
-
-        .footer-column ul li a {
-            color: #ddd;
-            text-decoration: none;
-            transition: var(--transition);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-column ul li a:hover {
-            color: var(--accent);
-            transform: translateX(5px);
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: var(--white);
-            transition: var(--transition);
-        }
-
-        .social-icons a:hover {
-            background: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-
-        /* Chatbot */
-        .chatbot {
+        /* Chat UI */
+        .chat-container {
             position: fixed;
             bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-        }
-
-        .chatbot-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 24px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .chatbot-icon:hover {
-            transform: scale(1.1) rotate(10deg);
-        }
-
-        .chatbot-window {
-            position: fixed;
-            bottom: 100px;
             right: 30px;
             width: 350px;
             height: 450px;
@@ -1068,16 +1019,21 @@
             z-index: 1001;
         }
 
-        .chatbot-header {
+        .chat-header {
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: var(--white);
             padding: 15px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
         }
 
-        .chatbot-messages {
+        .close-chat {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
@@ -1087,33 +1043,33 @@
             gap: 15px;
         }
 
-        .chatbot-msg {
+        .chat-msg {
             max-width: 80%;
             padding: 12px 15px;
             border-radius: 18px;
             font-size: 14px;
         }
 
-        .bot-msg {
-            align-self: flex-start;
-            background: var(--white);
-            border: 1px solid #eee;
-        }
-
-        .user-msg {
+        .sent-msg {
             align-self: flex-end;
             background: var(--primary);
             color: var(--white);
         }
 
-        .chatbot-input {
+        .received-msg {
+            align-self: flex-start;
+            background: var(--white);
+            border: 1px solid #eee;
+        }
+
+        .chat-input {
             display: flex;
             padding: 15px;
             background: var(--white);
             border-top: 1px solid #eee;
         }
 
-        .chatbot-input input {
+        .chat-input input {
             flex-grow: 1;
             padding: 12px 15px;
             border: 1px solid #ddd;
@@ -1121,7 +1077,7 @@
             font-size: 14px;
         }
 
-        .chatbot-input button {
+        .chat-input button {
             background: var(--primary);
             color: var(--white);
             border: none;
@@ -1185,10 +1141,6 @@
             .section-title h2 {
                 font-size: 2.4rem;
             }
-            
-            nav ul {
-                gap: 15px;
-            }
         }
 
         @media (max-width: 768px) {
@@ -1224,19 +1176,7 @@
                 font-size: 2.5rem;
             }
             
-            .cta h2 {
-                font-size: 2.5rem;
-            }
-            
-            .cta p {
-                font-size: 1.1rem;
-            }
-            
-            .match-controls {
-                flex-direction: column;
-            }
-            
-            .chatbot-window {
+            .chat-container {
                 width: 300px;
                 height: 400px;
                 right: 15px;
@@ -1245,72 +1185,6 @@
     </style>
 </head>
 <body>
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Login to Your Account</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="loginEmail">Email Address</label>
-                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="loginPassword">Password</label>
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
-                    <div class="form-footer">
-                        <a href="#" id="showForgotPassword">Forgot Password?</a>
-                        <a href="#" id="showSignup">Create Account</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Signup Modal -->
-    <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Create Your Account</h2>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="signupForm">
-                    <div class="form-group">
-                        <label for="signupName">Full Name</label>
-                        <input type="text" id="signupName" placeholder="Enter your full name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupEmail">Email Address</label>
-                        <input type="email" id="signupEmail" placeholder="Enter your email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupPassword">Password</label>
-                        <input type="password" id="signupPassword" placeholder="Create a password" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="signupRole">I'm looking for a</label>
-                        <select id="signupRole" required>
-                            <option value="">Select one</option>
-                            <option value="brother">Brother</option>
-                            <option value="sister">Sister</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
-                    <div class="form-footer">
-                        <span>Already have an account?</span>
-                        <a href="#" id="showLogin">Login</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
     <!-- Header -->
     <header>
         <div class="container">
@@ -1327,20 +1201,91 @@
                         <li><a href="#features">Features</a></li>
                         <li><a href="#matching">Find Sibling</a></li>
                         <li><a href="#stories">Success Stories</a></li>
-                        <li><a href="#about">About</a></li>
                     </ul>
                 </nav>
-                <div class="auth-buttons">
+                <div class="auth-buttons" id="authButtons">
                     <a href="#" class="btn btn-outline" id="loginBtn">Login</a>
                     <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
                     <div class="notification-badge">
                         <i class="fas fa-bell notification-icon" id="notificationIcon"></i>
-                        <div class="badge" id="notificationBadge">2</div>
+                        <div class="badge" id="notificationBadge">0</div>
                     </div>
+                </div>
+                <div class="user-info" id="userInfo" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">U</div>
+                    <span id="userName">User</span>
+                    <a href="#" class="btn btn-outline" id="logoutBtn">Logout</a>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLoginModal">&times;</span>
+            <div class="modal-title">
+                <i class="fas fa-user-circle"></i>
+                Welcome Back!
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;">Login</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="showSignupFromLogin">Sign Up</a></p>
+                    <p><a href="#">Forgot password?</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSignupModal">&times;</span>
+            <div class="modal-title">
+                <i class="fas fa-user-plus"></i>
+                Create Account
+            </div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address</label>
+                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupRole">I'm looking for a</label>
+                    <select id="signupRole" required style="width: 100%; padding: 15px 20px; border: 1px solid #ddd; border-radius: 50px; font-size: 16px;">
+                        <option value="">Select one</option>
+                        <option value="brother">Brother</option>
+                        <option value="sister">Sister</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="signupAbout">About You</label>
+                    <textarea id="signupAbout" placeholder="Tell us about yourself and what you're looking for..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;">Create Account</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="showLoginFromSignup">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -1376,7 +1321,6 @@
                     <div class="feature-content">
                         <h3>Safe & Verified Profiles</h3>
                         <p>All users go through a verification process to ensure a secure environment for everyone.</p>
-                        <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1386,7 +1330,6 @@
                     <div class="feature-content">
                         <h3>Virtual Celebrations</h3>
                         <p>Celebrate Rakhi with video calls and virtual rakhi tying ceremonies from anywhere.</p>
-                        <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
                 <div class="feature-card">
@@ -1396,7 +1339,6 @@
                     <div class="feature-content">
                         <h3>Rakhi Delivery</h3>
                         <p>Send beautiful rakhis to your new siblings through our partnered delivery service.</p>
-                        <a href="#" class="feature-link">Learn more <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1455,43 +1397,7 @@
                 </div>
                 
                 <div class="matches-grid" id="matchesGrid">
-                    <!-- Match cards will be generated by JavaScript -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Connection Counter -->
-    <section class="counter-section">
-        <div class="container">
-            <div class="counter-grid">
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="counter-number" id="userCounter">1,247</div>
-                    <div class="counter-label">Happy Users</div>
-                </div>
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <div class="counter-number" id="connectionCounter">843</div>
-                    <div class="counter-label">Connections Made</div>
-                </div>
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <div class="counter-number" id="eventCounter">112</div>
-                    <div class="counter-label">Events Organized</div>
-                </div>
-                <div class="counter-item">
-                    <div class="counter-icon">
-                        <i class="fas fa-globe-asia"></i>
-                    </div>
-                    <div class="counter-number" id="countryCounter">18</div>
-                    <div class="counter-label">Countries</div>
+                    <!-- User profiles will be loaded dynamically -->
                 </div>
             </div>
         </div>
@@ -1505,384 +1411,471 @@
                 <p>Real connections made through our platform</p>
             </div>
             
-            <div class="stories-container">
-                <div class="stories-grid">
-                    <div class="story-card">
-                        <div class="story-header">
-                            <div class="story-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="story-info">
-                                <h4>Priya M.</h4>
-                                <p>Found a brother in 2022</p>
-                            </div>
+            <div class="stories-grid">
+                <div class="story-card">
+                    <div class="story-header">
+                        <div class="story-avatar">
+                            <i class="fas fa-user"></i>
                         </div>
-                        <div class="story-content">
-                            "As an only child, I always felt lonely during Rakhi. This platform helped me find Rahul, who has become like a real brother. We've celebrated together for two years now!"
+                        <div class="story-info">
+                            <h4>Priya M.</h4>
+                            <p>Found a brother in 2022</p>
                         </div>
                     </div>
-                    
-                    <div class="story-card">
-                        <div class="story-header">
-                            <div class="story-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="story-info">
-                                <h4>Vikram S.</h4>
-                                <p>Found a sister in 2023</p>
-                            </div>
+                    <div class="story-content">
+                        "As an only child, I always felt lonely during Rakhi. This platform helped me find Rahul, who has become like a real brother. We've celebrated together for two years now!"
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-header">
+                        <div class="story-avatar">
+                            <i class="fas fa-user"></i>
                         </div>
-                        <div class="story-content">
-                            "After losing my sister, Rakhi became painful. Through this platform, I met Ananya. Though we live in different cities, we celebrate virtually every year."
+                        <div class="story-info">
+                            <h4>Vikram S.</h4>
+                            <p>Found a sister in 2023</p>
                         </div>
+                    </div>
+                    <div class="story-content">
+                        "After losing my sister, Rakhi became painful. Through this platform, I met Ananya. Though we live in different cities, we celebrate virtually every year."
+                    </div>
+                </div>
+                
+                <div class="story-card">
+                    <div class="story-header">
+                        <div class="story-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="story-info">
+                            <h4>Raj K.</h4>
+                            <p>Found a sister in 2024</p>
+                        </div>
+                    </div>
+                    <div class="story-content">
+                        "I moved to Canada for work and missed celebrating Rakhi. This platform helped me connect with Priya, who's now like a real sister to me. We send rakhis to each other every year!"
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="cta" id="cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Ready to Find Your Rakhi Sibling?</h2>
-                <p>Join our community and make this Raksha Bandhan truly special with a meaningful connection</p>
-                <a href="#" class="btn btn-outline">Create Your Profile Now</a>
-            </div>
+    <!-- Chat UI -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <h3 id="chatRecipient">Chat</h3>
+            <span class="close-chat" id="closeChat">&times;</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Rakhi Bandhan Connect</h3>
-                    <p>Creating meaningful connections for Raksha Bandhan celebrations since 2021.</p>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
-                        <li><a href="#features"><i class="fas fa-chevron-right"></i> Features</a></li>
-                        <li><a href="#matching"><i class="fas fa-chevron-right"></i> Find Sibling</a></li>
-                        <li><a href="#stories"><i class="fas fa-chevron-right"></i> Success Stories</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Resources</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Safety Guidelines</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> FAQs</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Rakhi Celebration Ideas</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Virtual Celebration Guide</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Contact Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Legal</h3>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Terms of Service</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Privacy Policy</a></li>
-                        <li><a href="#"><i class="fas fa-chevron-right"></i> Cookie Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2023 Rakhi Bandhan Connect. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for Raksha Bandhan</p>
-                <p><small>Note: This platform is strictly for creating meaningful sibling relationships for Raksha Bandhan. Any misuse for dating purposes is strictly prohibited.</small></p>
-            </div>
+        <div class="chat-messages" id="chatMessages">
+            <!-- Messages will appear here -->
         </div>
-    </footer>
-
-    <!-- Chatbot -->
-    <div class="chatbot">
-        <div class="chatbot-icon" id="chatbotIcon">
-            <i class="fas fa-comments"></i>
-        </div>
-        <div class="chatbot-window" id="chatbotWindow">
-            <div class="chatbot-header">
-                <i class="fas fa-ribbon"></i>
-                <h3>Rakhi Festival Assistant</h3>
-            </div>
-            <div class="chatbot-messages" id="chatbotMessages">
-                <div class="chatbot-msg bot-msg">
-                    Hi there! I'm your Rakhi Festival assistant. How can I help you today?
-                </div>
-                <div class="chatbot-msg bot-msg">
-                    You can ask me about:
-                    <ul>
-                        <li>Rakhi traditions</li>
-                        <li>Virtual celebration ideas</li>
-                        <li>Platform features</li>
-                        <li>Finding a Rakhi sibling</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="chatbot-input">
-                <input type="text" id="chatbotInput" placeholder="Ask about Raksha Bandhan...">
-                <button id="sendChatbotMsg"><i class="fas fa-paper-plane"></i></button>
-            </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="sendChatMsg"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
 
     <script>
         // Initialize the platform
         document.addEventListener('DOMContentLoaded', function() {
-            // Modal functionality
-            const loginModal = document.getElementById('loginModal');
-            const signupModal = document.getElementById('signupModal');
+            // Initialize localStorage if not exists
+            if (!localStorage.getItem('rakhiUsers')) {
+                localStorage.setItem('rakhiUsers', JSON.stringify([]));
+            }
+            
+            if (!localStorage.getItem('connections')) {
+                localStorage.setItem('connections', JSON.stringify([]));
+            }
+            
+            if (!localStorage.getItem('messages')) {
+                localStorage.setItem('messages', JSON.stringify([]));
+            }
+            
+            // DOM elements
             const loginBtn = document.getElementById('loginBtn');
             const signupBtn = document.getElementById('signupBtn');
-            const closeBtns = document.querySelectorAll('.close-modal');
-            const showLogin = document.getElementById('showLogin');
-            const showSignup = document.getElementById('showSignup');
+            const loginModal = document.getElementById('loginModal');
+            const signupModal = document.getElementById('signupModal');
+            const closeLoginModal = document.getElementById('closeLoginModal');
+            const closeSignupModal = document.getElementById('closeSignupModal');
+            const showSignupFromLogin = document.getElementById('showSignupFromLogin');
+            const showLoginFromSignup = document.getElementById('showLoginFromSignup');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+            const matchesGrid = document.getElementById('matchesGrid');
+            const notificationBadge = document.getElementById('notificationBadge');
+            const chatContainer = document.getElementById('chatContainer');
+            const closeChat = document.getElementById('closeChat');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const sendChatMsg = document.getElementById('sendChatMsg');
+            const chatRecipient = document.getElementById('chatRecipient');
             
-            // Open modals
-            loginBtn.addEventListener('click', () => {
-                loginModal.style.display = 'flex';
+            // Current user state
+            let currentUser = null;
+            let currentRecipient = null;
+            
+            // Check if user is already logged in
+            const storedUser = localStorage.getItem('currentUser');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                showUserInfo(currentUser);
+            }
+            
+            // Show login modal
+            loginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 signupModal.style.display = 'none';
+                loginModal.style.display = 'block';
             });
             
-            signupBtn.addEventListener('click', () => {
-                signupModal.style.display = 'flex';
+            // Show signup modal
+            signupBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 loginModal.style.display = 'none';
+                signupModal.style.display = 'block';
             });
             
             // Close modals
-            closeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    loginModal.style.display = 'none';
-                    signupModal.style.display = 'none';
-                });
-            });
-            
-            // Switch between modals
-            showSignup.addEventListener('click', (e) => {
-                e.preventDefault();
-                signupModal.style.display = 'flex';
+            closeLoginModal.addEventListener('click', function() {
                 loginModal.style.display = 'none';
             });
             
-            showLogin.addEventListener('click', (e) => {
-                e.preventDefault();
-                loginModal.style.display = 'flex';
+            closeSignupModal.addEventListener('click', function() {
                 signupModal.style.display = 'none';
+            });
+            
+            // Switch between login and signup
+            showSignupFromLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'block';
+            });
+            
+            showLoginFromSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupModal.style.display = 'none';
+                loginModal.style.display = 'block';
             });
             
             // Close modals when clicking outside
-            window.addEventListener('click', (e) => {
-                if (e.target === loginModal) loginModal.style.display = 'none';
-                if (e.target === signupModal) signupModal.style.display = 'none';
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (e.target === signupModal) {
+                    signupModal.style.display = 'none';
+                }
             });
             
-            // Form submissions
+            // Close chat
+            closeChat.addEventListener('click', function() {
+                chatContainer.style.display = 'none';
+            });
+            
+            // Login form submission
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const email = document.getElementById('loginEmail').value;
-                alert(`Welcome back! You've logged in as ${email}. Redirecting to your profile...`);
-                loginModal.style.display = 'none';
-                // In a real app, you would redirect to profile page
+                const password = document.getElementById('loginPassword').value;
+                
+                const users = JSON.parse(localStorage.getItem('rakhiUsers'));
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    showUserInfo(user);
+                    alert('Login successful! Welcome back, ' + user.name);
+                    this.reset();
+                    loginModal.style.display = 'none';
+                    loadUserProfiles();
+                } else {
+                    alert('Invalid email or password. Please try again.');
+                }
             });
             
+            // Signup form submission
             document.getElementById('signupForm').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const name = document.getElementById('signupName').value;
+                const email = document.getElementById('signupEmail').value;
+                const password = document.getElementById('signupPassword').value;
                 const role = document.getElementById('signupRole').value;
-                alert(`Welcome ${name}! Your account has been created. You're looking for a ${role}.`);
+                const about = document.getElementById('signupAbout').value;
+                
+                const users = JSON.parse(localStorage.getItem('rakhiUsers'));
+                if (users.some(u => u.email === email)) {
+                    alert('Email already registered. Please login instead.');
+                    return;
+                }
+                
+                const newUser = {
+                    id: Date.now().toString(),
+                    name,
+                    email,
+                    password,
+                    role,
+                    about,
+                    joined: new Date().toISOString()
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('rakhiUsers', JSON.stringify(users));
+                
+                currentUser = newUser;
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                
+                showUserInfo(newUser);
+                alert('Account created successfully! Welcome to Rakhi Bandhan Connect, ' + name);
+                this.reset();
                 signupModal.style.display = 'none';
-                // In a real app, you would create the account and redirect
-                
-                // Update user counter
-                const userCounter = document.getElementById('userCounter');
-                let currentCount = parseInt(userCounter.textContent.replace(/,/g, ''));
-                userCounter.textContent = (currentCount + 1).toLocaleString();
+                loadUserProfiles();
             });
             
-            // Chatbot functionality
-            const chatbotIcon = document.getElementById('chatbotIcon');
-            const chatbotWindow = document.getElementById('chatbotWindow');
-            const chatbotMessages = document.getElementById('chatbotMessages');
-            const chatbotInput = document.getElementById('chatbotInput');
-            const sendChatbotMsg = document.getElementById('sendChatbotMsg');
-            
-            chatbotIcon.addEventListener('click', function() {
-                chatbotWindow.style.display = 'flex';
+            // Logout functionality
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('currentUser');
+                currentUser = null;
+                userInfo.style.display = 'none';
+                authButtons.style.display = 'flex';
+                matchesGrid.innerHTML = '<p class="info-text">Please login to see other users</p>';
             });
             
-            sendChatbotMsg.addEventListener('click', sendMessage);
-            chatbotInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendMessage();
-            });
-            
-            function sendMessage() {
-                const message = chatbotInput.value.trim();
-                if (!message) return;
-                
-                // Add user message
-                const userMsg = document.createElement('div');
-                userMsg.className = 'chatbot-msg user-msg';
-                userMsg.textContent = message;
-                chatbotMessages.appendChild(userMsg);
-                
-                // Clear input
-                chatbotInput.value = '';
-                
-                // Scroll to bottom
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-                
-                // Simulate bot response
-                setTimeout(() => {
-                    let response = "I'm here to help with Raksha Bandhan related questions. Please ask about festival traditions, virtual celebrations, or using our platform.";
-                    
-                    if (message.toLowerCase().includes('tradition') || message.toLowerCase().includes('custom')) {
-                        response = "Raksha Bandhan is a traditional Hindu festival celebrating the bond between brothers and sisters. Sisters tie a rakhi (sacred thread) on their brothers' wrists, and brothers give gifts and promise protection.";
-                    } else if (message.toLowerCase().includes('virtual') || message.toLowerCase().includes('online')) {
-                        response = "You can celebrate Rakhi virtually by scheduling a video call, sending a rakhi in advance, performing the ceremony over video, and sharing a meal together online. Our platform has built-in video calling for this purpose!";
-                    } else if (message.toLowerCase().includes('sibling') || message.toLowerCase().includes('find')) {
-                        response = "To find a Rakhi sibling, create a profile, browse our verified users, and send a connection request. Once accepted, you can start planning your Rakhi celebration!";
-                    } else if (message.toLowerCase().includes('thank')) {
-                        response = "You're welcome! Happy Raksha Bandhan! 🎉";
-                    }
-                    
-                    const botMsg = document.createElement('div');
-                    botMsg.className = 'chatbot-msg bot-msg';
-                    botMsg.textContent = response;
-                    chatbotMessages.appendChild(botMsg);
-                    
-                    // Scroll to bottom
-                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-                }, 1000);
+            // Show user info in header
+            function showUserInfo(user) {
+                userInfo.style.display = 'flex';
+                authButtons.style.display = 'none';
+                userName.textContent = user.name;
+                userAvatar.textContent = user.name.charAt(0);
             }
             
-            // Generate match cards
-            const matchesGrid = document.getElementById('matchesGrid');
-            const users = [
-                {
-                    name: "Rahul Sharma",
-                    role: "brother",
-                    location: "Mumbai, India",
-                    about: "Software engineer looking for a sister to celebrate Rakhi with. Love photography and traveling."
-                },
-                {
-                    name: "Priya Patel",
-                    role: "sister",
-                    location: "Delhi, India",
-                    about: "Teacher seeking a brother to share Rakhi celebrations. Enjoy cooking and reading books."
-                },
-                {
-                    name: "Vikram Singh",
-                    role: "brother",
-                    location: "Bangalore, India",
-                    about: "Business owner looking for a sister to create a meaningful bond. Passionate about fitness."
-                },
-                {
-                    name: "Ananya Desai",
-                    role: "sister",
-                    location: "Chennai, India",
-                    about: "Doctor seeking a caring brother. Love animals and volunteering in my free time."
+            // Load user profiles in matching section
+            function loadUserProfiles() {
+                if (!currentUser) {
+                    matchesGrid.innerHTML = '<p class="info-text">Please login to see other users</p>';
+                    return;
                 }
-            ];
-            
-            function generateMatchCards() {
+                
+                const users = JSON.parse(localStorage.getItem('rakhiUsers'));
+                const connections = JSON.parse(localStorage.getItem('connections'));
+                
+                // Filter out current user
+                const otherUsers = users.filter(user => user.id !== currentUser.id);
+                
+                if (otherUsers.length === 0) {
+                    matchesGrid.innerHTML = '<p class="info-text">No users found. Invite others to join!</p>';
+                    return;
+                }
+                
                 matchesGrid.innerHTML = '';
                 
-                users.forEach(user => {
+                otherUsers.forEach(user => {
                     const matchCard = document.createElement('div');
                     matchCard.className = 'match-card';
+                    
+                    // Check if connected
+                    const isConnected = connections.some(conn => 
+                        (conn.user1 === currentUser.id && conn.user2 === user.id) ||
+                        (conn.user1 === user.id && conn.user2 === currentUser.id)
+                    );
                     
                     matchCard.innerHTML = `
                         <div class="match-header">
                             <div class="match-avatar">
-                                <i class="fas fa-user"></i>
+                                ${user.name.charAt(0)}
                             </div>
                             <h3>${user.name}</h3>
                             <p>Looking for ${user.role === 'brother' ? 'Sister' : 'Brother'}</p>
                         </div>
                         <div class="match-info">
-                            <p><i class="fas fa-map-marker-alt"></i> ${user.location}</p>
-                            <p>${user.about}</p>
+                            <p>${user.about || 'No description provided'}</p>
                             
                             <div class="match-stats">
                                 <div class="stat">
-                                    <div class="stat-value">92%</div>
+                                    <div class="stat-value">${Math.floor(Math.random() * 30) + 70}%</div>
                                     <div class="stat-label">Match Score</div>
                                 </div>
                                 <div class="stat">
-                                    <div class="stat-value">4</div>
-                                    <div class="stat-label">Interests</div>
+                                    <div class="stat-value">${new Date(user.joined).toLocaleDateString()}</div>
+                                    <div class="stat-label">Joined</div>
                                 </div>
                             </div>
                             
                             <div class="match-actions">
-                                <button class="match-btn connect-btn">
-                                    <i class="fas fa-link"></i> Connect
-                                </button>
-                                <button class="match-btn message-btn">
-                                    <i class="fas fa-comment"></i> Message
-                                </button>
+                                ${isConnected ? 
+                                    `<button class="match-btn message-btn" data-userid="${user.id}">
+                                        <i class="fas fa-comment"></i> Message
+                                    </button>` :
+                                    `<button class="match-btn connect-btn" data-userid="${user.id}">
+                                        <i class="fas fa-link"></i> Connect
+                                    </button>`
+                                }
                             </div>
                         </div>
                     `;
                     
                     matchesGrid.appendChild(matchCard);
                 });
+                
+                // Add event listeners to buttons
+                document.querySelectorAll('.connect-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const userId = this.getAttribute('data-userid');
+                        sendConnectionRequest(userId);
+                    });
+                });
+                
+                document.querySelectorAll('.message-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const userId = this.getAttribute('data-userid');
+                        startChat(userId);
+                    });
+                });
             }
             
-            generateMatchCards();
-            
-            // Connection request functionality
-            const connectButtons = document.querySelectorAll('.connect-btn');
-            connectButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const userName = this.closest('.match-card').querySelector('h3').textContent;
-                    alert(`Connection request sent to ${userName}! They'll receive an email notification and must accept your request before messaging can begin.`);
-                    
-                    // Update connection counter
-                    const connectionCounter = document.getElementById('connectionCounter');
-                    let currentCount = parseInt(connectionCounter.textContent);
-                    connectionCounter.textContent = currentCount + 1;
+            // Send connection request
+            function sendConnectionRequest(recipientId) {
+                if (!currentUser) return;
+                
+                const recipient = JSON.parse(localStorage.getItem('rakhiUsers'))
+                    .find(user => user.id === recipientId);
+                
+                if (!recipient) return;
+                
+                // Simulate email notification
+                alert(`Connection request sent to ${recipient.name}! A notification email has been sent to ${recipient.email}.`);
+                
+                // Add connection
+                const connections = JSON.parse(localStorage.getItem('connections'));
+                connections.push({
+                    id: Date.now().toString(),
+                    user1: currentUser.id,
+                    user2: recipientId,
+                    status: 'accepted', // Simulating immediate acceptance for demo
+                    date: new Date().toISOString()
                 });
-            });
-            
-            // Message button functionality
-            const messageButtons = document.querySelectorAll('.message-btn');
-            messageButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const userName = this.closest('.match-card').querySelector('h3').textContent;
-                    alert(`Before messaging ${userName}, you must send a connection request and have it accepted. This ensures meaningful relationships are formed.`);
-                });
-            });
-            
-            // Notification badge
-            const notificationBadge = document.getElementById('notificationBadge');
-            setInterval(() => {
+                localStorage.setItem('connections', JSON.stringify(connections));
+                
+                // Update UI
+                loadUserProfiles();
+                
+                // Update notification badge
                 let count = parseInt(notificationBadge.textContent);
-                notificationBadge.textContent = Math.max(0, count - 1);
-            }, 30000);
+                notificationBadge.textContent = count + 1;
+            }
             
-            // Filter buttons functionality
-            document.getElementById('showBrothersBtn').addEventListener('click', function() {
-                alert('Filtering to show brothers looking for sisters...');
-                // In a real app, you would filter the match cards
+            // Start chat with a user
+            function startChat(recipientId) {
+                if (!currentUser) return;
+                
+                const recipient = JSON.parse(localStorage.getItem('rakhiUsers'))
+                    .find(user => user.id === recipientId);
+                
+                if (!recipient) return;
+                
+                currentRecipient = recipient;
+                chatRecipient.textContent = `Chat with ${recipient.name}`;
+                chatMessages.innerHTML = '';
+                
+                // Load chat history
+                const messages = JSON.parse(localStorage.getItem('messages'));
+                const chatHistory = messages.filter(msg => 
+                    (msg.sender === currentUser.id && msg.recipient === recipientId) ||
+                    (msg.sender === recipientId && msg.recipient === currentUser.id)
+                );
+                
+                // Display messages
+                chatHistory.forEach(msg => {
+                    const messageDiv = document.createElement('div');
+                    messageDiv.className = msg.sender === currentUser.id ? 
+                        'chat-msg sent-msg' : 'chat-msg received-msg';
+                    messageDiv.textContent = msg.text;
+                    chatMessages.appendChild(messageDiv);
+                });
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Show chat container
+                chatContainer.style.display = 'flex';
+            }
+            
+            // Send chat message
+            sendChatMsg.addEventListener('click', function() {
+                if (!currentUser || !currentRecipient) return;
+                
+                const messageText = chatInput.value.trim();
+                if (!messageText) return;
+                
+                // Create message element
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'chat-msg sent-msg';
+                messageDiv.textContent = messageText;
+                chatMessages.appendChild(messageDiv);
+                
+                // Save message
+                const messages = JSON.parse(localStorage.getItem('messages'));
+                messages.push({
+                    id: Date.now().toString(),
+                    sender: currentUser.id,
+                    recipient: currentRecipient.id,
+                    text: messageText,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('messages', JSON.stringify(messages));
+                
+                // Clear input
+                chatInput.value = '';
+                
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Simulate response after delay
+                setTimeout(() => {
+                    const responses = [
+                        "That's wonderful! How have you been?",
+                        "I'm excited to celebrate Rakhi with you this year!",
+                        "What kind of rakhi do you like?",
+                        "We should plan our virtual celebration soon!",
+                        "I'm really glad we connected through this platform."
+                    ];
+                    
+                    const response = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    const responseDiv = document.createElement('div');
+                    responseDiv.className = 'chat-msg received-msg';
+                    responseDiv.textContent = response;
+                    chatMessages.appendChild(responseDiv);
+                    
+                    // Save response
+                    messages.push({
+                        id: Date.now().toString(),
+                        sender: currentRecipient.id,
+                        recipient: currentUser.id,
+                        text: response,
+                        timestamp: new Date().toISOString()
+                    });
+                    localStorage.setItem('messages', JSON.stringify(messages));
+                    
+                    // Scroll to bottom
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 2000);
             });
             
-            document.getElementById('showSistersBtn').addEventListener('click', function() {
-                alert('Filtering to show sisters looking for brothers...');
-                // In a real app, you would filter the match cards
+            // Enter key to send message
+            chatInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatMsg.click();
+                }
             });
             
-            document.getElementById('showAllBtn').addEventListener('click', function() {
-                alert('Showing all available matches...');
-                // In a real app, you would show all match cards
-            });
+            // Initial load
+            loadUserProfiles();
         });
     </script>
 </body>
