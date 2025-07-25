@@ -3,1156 +3,937 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rakhi Bandhan Connect - Find Your Rakhi Sibling</title>
+    <title>RakhiBandhan - Connect with Real Rakhi Siblings</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #8e44ad;
-            --primary-light: #9b59b6;
-            --primary-dark: #7d3c98;
-            --accent: #e84393;
-            --accent-light: #fd79a8;
-            --gold: #ffd700;
-            --silver: #c0c0c0;
-            --light: #f9f7fe;
-            --dark: #2c3e50;
-            --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
-            --text: #34495e;
-            --white: #ffffff;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e3e9ff 100%);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
+        :root {
+            --primary: #d81b60;
+            --primary-dark: #b0003a;
+            --secondary: #4a148c;
+            --accent: #ff9800;
+            --light: #f8bbd0;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+            --dark: #333333;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8bbd0, #e1bee7, #bbdefb);
+            color: var(--dark);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
         /* Header Styles */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .header-content {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            color: var(--white);
+            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
             display: flex;
             align-items: center;
-            gap: 12px;
-            text-decoration: none;
+            gap: 10px;
         }
 
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            font-size: 24px;
-            box-shadow: 0 4px 10px rgba(142, 68, 173, 0.3);
+        .logo h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            color: var(--white);
         }
 
-        .logo-text {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 28px;
-            color: var(--primary);
-            letter-spacing: 1px;
-        }
-
-        .logo-text span {
+        .logo i {
+            font-size: 2rem;
             color: var(--accent);
+            animation: pulse 2s infinite;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 2rem;
         }
 
         nav a {
-            color: var(--text);
+            color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            padding: 8px 15px;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
             border-radius: 30px;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        nav a:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: var(--accent);
-            transition: var(--transition);
-            transform: translateX(-50%);
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        nav a:hover, nav a.active {
+        nav a.active {
+            background: var(--white);
             color: var(--primary);
         }
 
-        nav a:hover:after, nav a.active:after {
-            width: 70%;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .user-info {
+        .user-actions {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 1rem;
+        }
+
+        .user-actions .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--white);
+            color: var(--white);
+        }
+
+        .btn-login:hover {
+            background: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-signup {
+            background: var(--accent);
+            border: 2px solid var(--accent);
+            color: var(--white);
+        }
+
+        .btn-signup:hover {
+            background: #e68a00;
+            border-color: #e68a00;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
         }
 
         .user-avatar {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            background: var(--light);
             display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            color: var(--white);
             font-weight: bold;
-            font-size: 18px;
-        }
-
-        .btn {
-            padding: 12px 28px;
-            border-radius: 50px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: var(--white);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
             color: var(--primary);
+            border: 2px solid var(--white);
         }
 
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
         }
 
-        .btn-primary:hover {
-            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-light) 100%);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: var(--white);
-        }
-
-        .notification-badge {
-            position: relative;
-            margin-left: 15px;
-        }
-
-        .notification-icon {
-            font-size: 24px;
-            color: var(--primary);
-            cursor: pointer;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .notification-icon:hover {
-            color: var(--accent);
-            transform: scale(1.1);
-        }
-
-        .badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: var(--accent);
-            color: var(--white);
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 2000;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
+        .section {
             background: var(--white);
-            margin: 5% auto;
-            padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.8s ease-out;
         }
 
-        .modal.show .modal-content {
-            transform: translateY(0);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            color: var(--text);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .close-modal:hover {
-            color: var(--accent);
-            transform: rotate(90deg);
-        }
-
-        .modal-title {
+        .section-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 2rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.2rem;
             color: var(--primary);
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
         }
 
-        .modal-title i {
-            display: block;
-            font-size: 3rem;
-            margin-bottom: 15px;
-            color: var(--accent);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid #ddd;
-            border-radius: 50px;
-            font-size: 16px;
-            transition: var(--transition);
-        }
-
-        .form-group textarea {
-            border-radius: 20px;
-            height: 120px;
-        }
-
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
-            outline: none;
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 30px;
-        }
-
-        .form-footer p {
-            margin-bottom: 15px;
-            color: var(--text);
-        }
-
-        .form-footer a {
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .form-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .or-divider {
-            display: flex;
-            align-items: center;
-            margin: 25px 0;
-            color: var(--text);
-        }
-
-        .or-divider:before, .or-divider:after {
+        .section-header h2::after {
             content: '';
-            flex: 1;
-            height: 1px;
-            background: #ddd;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 2px;
         }
 
-        .or-divider span {
-            padding: 0 15px;
-        }
-
-        .social-login {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .social-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--white);
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .social-btn:hover {
-            transform: translateY(-5px);
-        }
-
-        .facebook {
-            background: #3b5998;
-        }
-
-        .google {
-            background: #db4437;
+        .section-header p {
+            color: var(--dark);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            line-height: 1.6;
         }
 
         /* Hero Section */
         .hero {
-            padding: 100px 0 80px;
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(rgba(186, 222, 251, 0.8), rgba(248, 187, 208, 0.8)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23d81b60" opacity="0.05"/><path d="M20,20 Q40,5 60,20 T100,20 Q85,40 100,60 T100,100 Q60,85 60,100 T20,100 Q5,85 20,60 T20,20Z" fill="%234a148c" opacity="0.08"/></svg>');
+            border-radius: 20px;
             position: relative;
             overflow: hidden;
         }
 
         .hero-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .hero-text {
-            flex: 1;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            animation: fadeIn 1s ease;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            transform: perspective(1000px) rotateY(-5deg);
-            transition: var(--transition);
-        }
-
-        .hero-image img:hover {
-            transform: perspective(1000px) rotateY(0);
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
-            line-height: 1.2;
+            font-size: 3.5rem;
             color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .hero h1 span {
-            color: var(--accent);
-            position: relative;
-        }
-
-        .hero h1 span:after {
-            content: '';
-            position: absolute;
-            bottom: 5px;
-            left: 0;
-            width: 100%;
-            height: 12px;
-            background: rgba(232, 67, 147, 0.2);
-            z-index: -1;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            animation: float 4s ease-in-out infinite;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--text);
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
             max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .hero-buttons {
+        .hero-btns {
             display: flex;
-            gap: 20px;
-            margin-top: 30px;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
         }
 
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background: var(--white);
-            position: relative;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-            padding-bottom: 15px;
-        }
-
-        .section-title h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 2px;
-        }
-
-        .section-title p {
-            max-width: 700px;
-            margin: 15px auto 0;
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             font-size: 1.1rem;
-            color: var(--text);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--light);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            position: relative;
-            z-index: 1;
-        }
-
-        .feature-card:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            opacity: 0;
-            transition: var(--transition);
-            z-index: -1;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-card:hover:before {
-            opacity: 1;
-        }
-
-        .feature-card:hover .feature-icon {
-            background: var(--white);
-            color: var(--primary);
-        }
-
-        .feature-card:hover .feature-content h3,
-        .feature-card:hover .feature-content p,
-        .feature-card:hover .feature-link {
-            color: var(--white);
-        }
-
-        .feature-icon {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            height: 120px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-size: 50px;
-            transition: var(--transition);
-        }
-
-        .feature-content {
-            padding: 30px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .feature-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-            transition: var(--transition);
-        }
-
-        .feature-content p {
-            margin-bottom: 20px;
-            flex-grow: 1;
-            transition: var(--transition);
-        }
-
-        .feature-link {
-            color: var(--accent);
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            transition: var(--transition);
-        }
-
-        .feature-link:hover {
-            gap: 10px;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 100px 0;
-            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .steps {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 50px;
-        }
-
-        .step {
-            background: var(--white);
-            border-radius: 20px;
-            width: 250px;
-            padding: 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            position: relative;
-            transition: var(--transition);
-            z-index: 1;
-        }
-
-        .step:hover {
-            transform: scale(1.05);
-        }
-
-        .step-number {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--accent);
-            color: var(--white);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 8px rgba(232, 67, 147, 0.4);
-        }
-
-        .step i {
-            font-size: 50px;
-            color: var(--primary);
-            margin-bottom: 20px;
-            transition: var(--transition);
-        }
-
-        .step:hover i {
-            color: var(--accent);
-            transform: scale(1.1);
-        }
-
-        .step h3 {
-            margin-bottom: 15px;
-            color: var(--dark);
-            font-size: 1.4rem;
-        }
-
-        /* Matching Section */
-        .matching-section {
-            padding: 100px 0;
-            background: var(--white);
-        }
-        
-        .match-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-        
-        .match-controls {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            width: 100%;
-        }
-        
-        .match-card {
-            background: var(--white);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .match-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-        
-        .match-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            padding: 25px;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .match-header:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: 100% 100%;
-        }
-        
-        .match-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: var(--white);
-            margin: 0 auto 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 40px;
-            color: var(--primary);
-            border: 3px solid var(--gold);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .match-info {
-            padding: 25px;
-        }
-        
-        .match-info h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .match-info p {
-            margin-bottom: 15px;
-            color: var(--text);
-            line-height: 1.6;
-        }
-        
-        .match-stats {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .stat {
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        
-        .stat-label {
-            font-size: 0.9rem;
-            color: #777;
-        }
-        
-        .match-actions {
-            display: flex;
-            gap: 10px;
-            margin-top: auto;
-        }
-        
-        .match-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            display: flex;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 5px;
+            gap: 10px;
         }
-        
-        .connect-btn {
-            background: var(--success);
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             color: var(--white);
+            box-shadow: 0 8px 20px rgba(216, 27, 96, 0.3);
         }
-        
-        .message-btn {
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(216, 27, 96, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
             background: var(--primary);
             color: var(--white);
         }
-        
-        .match-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-3px);
-        }
 
-        /* Connection Counter */
-        .counter-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            padding: 80px 0;
-            color: var(--white);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .counter-section:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" preserveAspectRatio="none"><path d="M0,0 C50,50 150,50 200,0 L200,200 L0,200 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: 100% 100%;
-        }
-
-        .counter-grid {
+        /* Users Section */
+        .users-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            position: relative;
-            z-index: 1;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
         }
 
-        .counter-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .counter-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            color: var(--gold);
-        }
-
-        .counter-number {
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .counter-label {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        /* Success Stories */
-        .success-stories {
-            padding: 100px 0;
-            background: var(--light);
-        }
-
-        .stories-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .story-form {
+        .user-card {
             background: var(--white);
             border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 40px;
-            box-shadow: var(--shadow);
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .story-form h3 {
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 20px;
+        .user-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .user-header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 1.5rem;
             text-align: center;
+            position: relative;
+        }
+
+        .user-avatar-lg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--light);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary);
+            border: 4px solid var(--white);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-name {
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 0.3rem;
+        }
+
+        .user-gender {
+            color: var(--light);
+            font-size: 1rem;
+        }
+
+        .user-body {
+            padding: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .user-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-bio {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-connect {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: var(--white);
+        }
+
+        .btn-connect:hover {
+            background: linear-gradient(to right, var(--primary-dark), #e68a00);
+        }
+
+        .btn-message {
+            background: var(--gray);
+            color: var(--dark);
+        }
+
+        .btn-message:hover {
+            background: #e0e0e0;
+        }
+
+        /* Notifications Section */
+        .notification-list {
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .notification-item {
+            display: flex;
+            align-items: center;
+            padding: 1.2rem;
+            background: var(--gray);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            animation: slideIn 0.5s ease-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .notification-item:hover {
+            transform: translateX(5px);
+            background: #f0f0f0;
+        }
+
+        .notification-item.unread {
+            background: #ffecf1;
+            border-left: 4px solid var(--primary);
+        }
+
+        .notification-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-content h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .notification-content p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .notification-time {
+            color: #888;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        .notification-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: 1rem;
+        }
+
+        .notif-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-accept {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-reject {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-block {
+            background: var(--dark);
+            color: white;
+        }
+
+        /* Messaging Section */
+        .chat-container {
+            display: flex;
+            height: 500px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+        }
+
+        .chat-sidebar {
+            width: 300px;
+            background: linear-gradient(to bottom, var(--secondary), var(--primary));
+            color: var(--white);
+            padding: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .chat-sidebar h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sibling-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sibling-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .sibling-item:hover, .sibling-item.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .sibling-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            border: 2px solid var(--white);
+        }
+
+        .sibling-info {
+            flex: 1;
+        }
+
+        .sibling-name {
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .sibling-status {
+            font-size: 0.85rem;
+            color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4caf50;
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .chat-header-info {
+            flex: 1;
+        }
+
+        .chat-header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-header-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-header-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: #fafafa;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 1rem 1.2rem;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .message.received {
+            background: var(--white);
+            border: 1px solid #eee;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message.sent {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: var(--white);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            text-align: right;
+            margin-top: 0.3rem;
+            opacity: 0.7;
+        }
+
+        .chat-input {
+            padding: 1.2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+            background: var(--white);
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 30px;
+            border: 1px solid #ddd;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .chat-input button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .chat-input button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Registration Form */
+        .registration-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--text);
         }
 
-        .form-group input, 
-        .form-group textarea {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 15px;
+            padding: 0.8rem 1rem;
             border: 1px solid #ddd;
             border-radius: 10px;
-            font-size: 16px;
-            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
         }
 
-        .form-group textarea {
-            height: 150px;
-            resize: vertical;
-        }
-
-        .form-group input:focus, 
-        .form-group textarea:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(142, 68, 173, 0.2);
+        .form-group input:focus, .form-group select:focus {
             outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(216, 27, 96, 0.2);
         }
 
-        .stories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .story-card {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-
-        .story-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .story-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .story-avatar {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--white);
-            font-size: 30px;
-            margin-right: 20px;
-        }
-
-        .story-info h4 {
-            font-size: 1.3rem;
-            color: var(--primary);
-        }
-
-        .story-info p {
-            color: var(--accent);
-        }
-
-        .story-content {
-            font-style: italic;
-            color: var(--text);
-            position: relative;
-            padding-left: 20px;
-        }
-
-        .story-content:before {
-            content: '"';
-            position: absolute;
-            top: -20px;
-            left: -10px;
-            font-size: 80px;
-            color: rgba(142, 68, 173, 0.1);
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Chat UI */
-        .chat-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 350px;
-            height: 450px;
-            background: var(--white);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: none;
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 1001;
-        }
-
-        .chat-header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: var(--white);
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .close-chat {
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .chat-messages {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
             background: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+            border-radius: 15px;
+            margin: 2rem 0;
         }
 
-        .chat-msg {
-            max-width: 80%;
-            padding: 12px 15px;
-            border-radius: 18px;
-            font-size: 14px;
+        .empty-state i {
+            font-size: 4rem;
+            color: #ccc;
+            margin-bottom: 1.5rem;
         }
 
-        .sent-msg {
-            align-self: flex-end;
-            background: var(--primary);
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            color: #888;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
             color: var(--white);
+            padding: 3rem 5% 2rem;
+            margin-top: 4rem;
         }
 
-        .received-msg {
-            align-self: flex-start;
-            background: var(--white);
-            border: 1px solid #eee;
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .chat-input {
+        .footer-column h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
             display: flex;
-            padding: 15px;
-            background: var(--white);
-            border-top: 1px solid #eee;
+            align-items: center;
+            gap: 10px;
         }
 
-        .chat-input input {
-            flex-grow: 1;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            font-size: 14px;
-        }
-
-        .chat-input button {
-            background: var(--primary);
+        .footer-links a:hover {
             color: var(--white);
-            border: none;
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            margin-left: 10px;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.1);
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 16px;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
         }
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .hero-content {
+            .chat-container {
                 flex-direction: column;
+                height: auto;
             }
             
-            .hero-text, .hero-image {
-                text-align: center;
+            .chat-sidebar {
                 width: 100%;
-            }
-            
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-            }
-            
-            .section-title h2 {
-                font-size: 2.4rem;
+                height: 300px;
             }
         }
 
         @media (max-width: 768px) {
-            .header-content {
+            header {
                 flex-direction: column;
-                gap: 20px;
+                gap: 1rem;
+                padding: 1rem;
             }
             
             nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+                gap: 1rem;
             }
             
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .hero p {
                 font-size: 1.1rem;
             }
             
-            .hero-buttons {
+            .hero-btns {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
             }
             
-            .steps {
+            .users-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+            
+            .notification-item {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
+                gap: 1rem;
             }
             
-            .counter-number {
-                font-size: 2.5rem;
+            .notification-actions {
+                margin-left: 0;
+                margin-top: 1rem;
+                width: 100%;
             }
             
-            .chat-container {
-                width: 300px;
-                height: 400px;
-                right: 15px;
+            .notif-btn {
+                flex: 1;
+                width: auto;
+                border-radius: 10px;
+                padding: 0.5rem;
+            }
+            
+            .chat-input {
+                flex-direction: column;
+            }
+            
+            .chat-input input {
+                width: 100%;
             }
         }
     </style>
@@ -1160,694 +941,775 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-hands-helping"></i>
-                    </div>
-                    <div class="logo-text">Rakhi<span>Bandhan</span></div>
-                </a>
-                <nav>
-                    <ul>
-                        <li><a href="#" class="active">Home</a></li>
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#matching">Find Sibling</a></li>
-                        <li><a href="#stories">Success Stories</a></li>
-                    </ul>
-                </nav>
-                <div class="auth-buttons" id="authButtons">
-                    <a href="#" class="btn btn-outline" id="loginBtn">Login</a>
-                    <a href="#" class="btn btn-primary" id="signupBtn">Sign Up</a>
-                    <div class="notification-badge">
-                        <i class="fas fa-bell notification-icon" id="notificationIcon"></i>
-                        <div class="badge" id="notificationBadge">0</div>
-                    </div>
-                </div>
-                <div class="user-info" id="userInfo" style="display: none;">
-                    <div class="user-avatar" id="userAvatar">U</div>
-                    <span id="userName">User</span>
-                    <a href="#" class="btn btn-outline" id="logoutBtn">Logout</a>
-                </div>
-            </div>
+        <div class="logo">
+            <i class="fas fa-hands-holding-heart"></i>
+            <h1>RakhiBandhan</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#find-sibling">Find Sibling</a></li>
+                <li><a href="#notifications">Notifications</a></li>
+                <li><a href="#messages">Messages</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button class="btn btn-login" id="loginBtn">Login</button>
+            <button class="btn btn-signup" id="registerBtn">Register</button>
         </div>
     </header>
 
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeLoginModal">&times;</span>
-            <div class="modal-title">
-                <i class="fas fa-user-circle"></i>
-                Welcome Back!
+    <!-- Hero Section -->
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Connect with Real Rakhi Siblings</h1>
+                <p>A platform exclusively for real people to find their perfect Rakhi brother or sister. No AI users - only genuine connections!</p>
+                <div class="hero-btns">
+                    <button class="btn btn-primary" id="findSiblingBtn">
+                        <i class="fas fa-search"></i> Find Sibling Now
+                    </button>
+                    <button class="btn btn-secondary">
+                        <i class="fas fa-play-circle"></i> How It Works
+                    </button>
+                </div>
             </div>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="loginEmail">Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
-                </div>
-                <div class="form-group">
-                    <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;">Login</button>
-                <div class="form-footer">
-                    <p>Don't have an account? <a href="#" id="showSignupFromLogin">Sign Up</a></p>
-                    <p><a href="#">Forgot password?</a></p>
-                </div>
-            </form>
-        </div>
+        </section>
     </div>
 
-    <!-- Signup Modal -->
-    <div class="modal" id="signupModal">
-        <div class="modal-content">
-            <span class="close-modal" id="closeSignupModal">&times;</span>
-            <div class="modal-title">
-                <i class="fas fa-user-plus"></i>
-                Create Account
+    <!-- Registration Form (Hidden by default) -->
+    <div class="container" id="registrationSection" style="display: none;">
+        <section class="section">
+            <div class="section-header">
+                <h2>Create Your Account</h2>
+                <p>Register to find your perfect Rakhi sibling. All fields are required.</p>
             </div>
-            <form id="signupForm">
+            <div class="registration-container">
                 <div class="form-group">
-                    <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" placeholder="Enter your full name" required>
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your full name">
                 </div>
                 <div class="form-group">
-                    <label for="signupEmail">Email Address</label>
-                    <input type="email" id="signupEmail" placeholder="Enter your email" required>
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email">
                 </div>
                 <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" placeholder="Create a password" required>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create a password">
                 </div>
                 <div class="form-group">
-                    <label for="signupRole">I'm looking for a</label>
-                    <select id="signupRole" required style="width: 100%; padding: 15px 20px; border: 1px solid #ddd; border-radius: 50px; font-size: 16px;">
-                        <option value="">Select one</option>
-                        <option value="brother">Brother</option>
-                        <option value="sister">Sister</option>
+                    <label for="gender">I am looking for a</label>
+                    <select id="lookingFor">
+                        <option value="">Select an option</option>
+                        <option value="brother">Rakhi Brother</option>
+                        <option value="sister">Rakhi Sister</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="signupAbout">About You</label>
-                    <textarea id="signupAbout" placeholder="Tell us about yourself and what you're looking for..."></textarea>
+                    <label for="gender">Your Gender</label>
+                    <select id="gender">
+                        <option value="">Select your gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 15px;">Create Account</button>
-                <div class="form-footer">
-                    <p>Already have an account? <a href="#" id="showLoginFromSignup">Login</a></p>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" placeholder="City, Country">
                 </div>
-            </form>
-        </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" id="completeRegistration" style="width: 100%; padding: 1rem;">
+                        <i class="fas fa-user-plus"></i> Complete Registration
+                    </button>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Find Your Perfect <span>Rakhi Sibling</span></h1>
-                    <p>Connect with others who are looking for siblings to celebrate Raksha Bandhan. Create meaningful bonds that last beyond the festival.</p>
-                    <div class="hero-buttons">
-                        <a href="#matching" class="btn btn-primary">Find a Brother</a>
-                        <a href="#matching" class="btn btn-outline">Find a Sister</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <img src="https://images.unsplash.com/photo-1592919505780-303950717430?ixlib=rb-4.0.3" alt="Rakhi Celebration" class="floating">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <div class="section-title">
-                <h2>Why Choose Our Platform</h2>
-                <p>A dedicated space for creating meaningful Raksha Bandhan connections</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="feature-content">
-                        <h3>Safe & Verified Profiles</h3>
-                        <p>All users go through a verification process to ensure a secure environment for everyone.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <div class="feature-content">
-                        <h3>Virtual Celebrations</h3>
-                        <p>Celebrate Rakhi with video calls and virtual rakhi tying ceremonies from anywhere.</p>
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="feature-content">
-                        <h3>Rakhi Delivery</h3>
-                        <p>Send beautiful rakhis to your new siblings through our partnered delivery service.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <div class="section-title">
-                <h2>How It Works</h2>
-                <p>Simple steps to find your Rakhi sibling and celebrate together</p>
-            </div>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <i class="fas fa-user-plus"></i>
-                    <h3>Create Profile</h3>
-                    <p>Sign up and tell us about yourself and what you're looking for.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <i class="fas fa-search"></i>
-                    <h3>Find Match</h3>
-                    <p>Browse verified profiles or let our algorithm find compatible siblings.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <i class="fas fa-handshake"></i>
-                    <h3>Connect</h3>
-                    <p>Send connection requests and start chatting after acceptance.</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <i class="fas fa-hands"></i>
-                    <h3>Celebrate</h3>
-                    <p>Plan your Rakhi celebration virtually or in person.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Matching Section -->
-    <section class="matching-section" id="matching">
-        <div class="container">
-            <div class="section-title">
+    <!-- Find Sibling Section -->
+    <div class="container" id="find-sibling">
+        <section class="section">
+            <div class="section-header">
                 <h2>Find Your Rakhi Sibling</h2>
-                <p>Connect with verified users looking for meaningful sibling relationships</p>
+                <p>Connect with real users to celebrate the beautiful bond of Raksha Bandhan.</p>
             </div>
             
-            <div class="match-container">
-                <div class="match-controls">
-                    <button class="btn btn-primary" id="showBrothersBtn">Show Brothers</button>
-                    <button class="btn btn-primary" id="showSistersBtn">Show Sisters</button>
-                    <button class="btn btn-outline" id="showAllBtn">Show All</button>
-                </div>
-                
-                <div class="matches-grid" id="matchesGrid">
-                    <!-- User profiles will be loaded dynamically -->
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Success Stories -->
-    <section class="success-stories" id="stories">
-        <div class="container">
-            <div class="section-title">
-                <h2>Success Stories</h2>
-                <p>Real connections made through our platform</p>
-            </div>
-            
-            <div class="stories-grid">
-                <div class="story-card">
-                    <div class="story-header">
-                        <div class="story-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="story-info">
-                            <h4>Priya M.</h4>
-                            <p>Found a brother in 2022</p>
-                        </div>
-                    </div>
-                    <div class="story-content">
-                        "As an only child, I always felt lonely during Rakhi. This platform helped me find Rahul, who has become like a real brother. We've celebrated together for two years now!"
-                    </div>
-                </div>
-                
-                <div class="story-card">
-                    <div class="story-header">
-                        <div class="story-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="story-info">
-                            <h4>Vikram S.</h4>
-                            <p>Found a sister in 2023</p>
-                        </div>
-                    </div>
-                    <div class="story-content">
-                        "After losing my sister, Rakhi became painful. Through this platform, I met Ananya. Though we live in different cities, we celebrate virtually every year."
-                    </div>
-                </div>
-                
-                <div class="story-card">
-                    <div class="story-header">
-                        <div class="story-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="story-info">
-                            <h4>Raj K.</h4>
-                            <p>Found a sister in 2024</p>
-                        </div>
-                    </div>
-                    <div class="story-content">
-                        "I moved to Canada for work and missed celebrating Rakhi. This platform helped me connect with Priya, who's now like a real sister to me. We send rakhis to each other every year!"
-                    </div>
+            <div id="usersContainer">
+                <div class="empty-state">
+                    <i class="fas fa-users-slash"></i>
+                    <h3>No Registered Users Yet</h3>
+                    <p>Be the first to register and start connecting with Rakhi siblings! Once other users register, they will appear here.</p>
+                    <button class="btn btn-primary" id="registerNowBtn" style="margin-top: 1.5rem;">
+                        <i class="fas fa-user-plus"></i> Register Now
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Chat UI -->
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-            <h3 id="chatRecipient">Chat</h3>
-            <span class="close-chat" id="closeChat">&times;</span>
-        </div>
-        <div class="chat-messages" id="chatMessages">
-            <!-- Messages will appear here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chatInput" placeholder="Type a message...">
-            <button id="sendChatMsg"><i class="fas fa-paper-plane"></i></button>
-        </div>
+        </section>
     </div>
+
+    <!-- Notifications Section -->
+    <div class="container" id="notifications">
+        <section class="section">
+            <div class="section-header">
+                <h2>Your Notifications</h2>
+                <p>Manage your connection requests and activities.</p>
+            </div>
+            <div class="notification-list" id="notificationsContainer">
+                <div class="empty-state">
+                    <i class="fas fa-bell-slash"></i>
+                    <h3>No Notifications Yet</h3>
+                    <p>You'll receive notifications here when other users want to connect with you as Rakhi siblings.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Messaging Section -->
+    <div class="container" id="messages">
+        <section class="section">
+            <div class="section-header">
+                <h2>Messages</h2>
+                <p>Connect and celebrate with your Rakhi siblings.</p>
+            </div>
+            <div id="chatContainer">
+                <div class="empty-state">
+                    <i class="fas fa-comments"></i>
+                    <h3>Start a Conversation</h3>
+                    <p>Once you connect with a Rakhi sibling, you can message them here. Start by finding and connecting with someone!</p>
+                    <button class="btn btn-primary" id="findSiblingBtn2" style="margin-top: 1.5rem;">
+                        <i class="fas fa-search"></i> Find Sibling
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="container" id="how-it-works">
+        <section class="section">
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Find your perfect Rakhi sibling in just a few simple steps</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                <div style="background: #f9f9f9; border-radius: 15px; padding: 2rem; text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">1</div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Register</h3>
+                    <p>Create your account and tell us about yourself and what you're looking for in a Rakhi sibling.</p>
+                </div>
+                <div style="background: #f9f9f9; border-radius: 15px; padding: 2rem; text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">2</div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Connect</h3>
+                    <p>Browse real users and send connection requests to those you'd like as your Rakhi sibling.</p>
+                </div>
+                <div style="background: #f9f9f9; border-radius: 15px; padding: 2rem; text-align: center;">
+                    <div style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;">3</div>
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Celebrate</h3>
+                    <p>Once connected, celebrate Raksha Bandhan by sending messages, photos, and even video calling!</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>RakhiBandhan</h3>
+                <p>A platform dedicated to helping people find their perfect Rakhi siblings and celebrate the beautiful bond of Raksha Bandhan.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="#find-sibling"><i class="fas fa-chevron-right"></i> Find Sibling</a></li>
+                    <li><a href="#messages"><i class="fas fa-chevron-right"></i> Messages</a></li>
+                    <li><a href="#notifications"><i class="fas fa-chevron-right"></i> Notifications</a></li>
+                    <li><a href="#how-it-works"><i class="fas fa-chevron-right"></i> How It Works</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Rakhi Street, Mumbai, India</a></li>
+                    <li><a href="#"><i class="fas fa-phone"></i> +91 98765 43210</a></li>
+                    <li><a href="#"><i class="fas fa-envelope"></i> contact@rakhibandhan.com</a></li>
+                    <li><a href="#"><i class="fas fa-headset"></i> Support Center</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2023 RakhiBandhan. All Rights Reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> for Raksha Bandhan
+        </div>
+    </footer>
 
     <script>
-        // Initialize the platform
+        // Real user data storage
+        const users = JSON.parse(localStorage.getItem('rakhiUsers')) || [];
+        const currentUser = JSON.parse(localStorage.getItem('currentRakhiUser')) || null;
+        const connections = JSON.parse(localStorage.getItem('rakhiConnections')) || [];
+        const messages = JSON.parse(localStorage.getItem('rakhiMessages')) || {};
+
+        // DOM Elements
+        const registrationSection = document.getElementById('registrationSection');
+        const usersContainer = document.getElementById('usersContainer');
+        const notificationsContainer = document.getElementById('notificationsContainer');
+        const chatContainer = document.getElementById('chatContainer');
+        const registerBtn = document.getElementById('registerBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const findSiblingBtn = document.getElementById('findSiblingBtn');
+        const findSiblingBtn2 = document.getElementById('findSiblingBtn2');
+        const registerNowBtn = document.getElementById('registerNowBtn');
+        const completeRegistration = document.getElementById('completeRegistration');
+
+        // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize localStorage if not exists
-            if (!localStorage.getItem('rakhiUsers')) {
-                localStorage.setItem('rakhiUsers', JSON.stringify([]));
+            updateHeader();
+            renderUsers();
+            renderNotifications();
+            renderChat();
+        });
+
+        // Update header based on login state
+        function updateHeader() {
+            if (currentUser) {
+                document.querySelector('.user-actions').innerHTML = `
+                    <div class="user-profile">
+                        <div class="user-avatar">${currentUser.name.charAt(0)}</div>
+                        <span>${currentUser.name}</span>
+                    </div>
+                    <button class="btn btn-login" id="logoutBtn">Logout</button>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', logout);
+            }
+        }
+
+        // Register button click
+        registerBtn.addEventListener('click', function() {
+            registrationSection.style.display = 'block';
+            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+        });
+
+        registerNowBtn.addEventListener('click', function() {
+            registrationSection.style.display = 'block';
+            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+        });
+
+        findSiblingBtn.addEventListener('click', function() {
+            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+        });
+
+        findSiblingBtn2.addEventListener('click', function() {
+            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+        });
+
+        // Complete registration
+        completeRegistration.addEventListener('click', function() {
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const lookingFor = document.getElementById('lookingFor').value;
+            const gender = document.getElementById('gender').value;
+            const location = document.getElementById('location').value;
+            
+            if (!name || !email || !password || !lookingFor || !gender || !location) {
+                alert('Please fill in all fields');
+                return;
             }
             
-            if (!localStorage.getItem('connections')) {
-                localStorage.setItem('connections', JSON.stringify([]));
+            const newUser = {
+                id: Date.now().toString(),
+                name,
+                email,
+                password,
+                lookingFor,
+                gender,
+                location,
+                registeredAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('rakhiUsers', JSON.stringify(users));
+            
+            // Log in the new user
+            localStorage.setItem('currentRakhiUser', JSON.stringify(newUser));
+            
+            alert('Registration successful! You are now logged in.');
+            registrationSection.style.display = 'none';
+            updateHeader();
+            renderUsers();
+        });
+
+        // Login button
+        loginBtn.addEventListener('click', function() {
+            const email = prompt('Enter your email:');
+            if (!email) return;
+            
+            const password = prompt('Enter your password:');
+            if (!password) return;
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                localStorage.setItem('currentRakhiUser', JSON.stringify(user));
+                updateHeader();
+                renderUsers();
+                alert(`Welcome back, ${user.name}!`);
+            } else {
+                alert('Invalid email or password');
+            }
+        });
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('currentRakhiUser');
+            location.reload();
+        }
+
+        // Render real users
+        function renderUsers() {
+            if (users.length === 0) {
+                usersContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-users-slash"></i>
+                        <h3>No Registered Users Yet</h3>
+                        <p>Be the first to register and start connecting with Rakhi siblings! Once other users register, they will appear here.</p>
+                        <button class="btn btn-primary" id="registerNowBtn" style="margin-top: 1.5rem;">
+                            <i class="fas fa-user-plus"></i> Register Now
+                        </button>
+                    </div>
+                `;
+                document.getElementById('registerNowBtn').addEventListener('click', function() {
+                    registrationSection.style.display = 'block';
+                    document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+                });
+                return;
             }
             
-            if (!localStorage.getItem('messages')) {
-                localStorage.setItem('messages', JSON.stringify([]));
-            }
+            let html = '<div class="users-grid">';
             
-            // DOM elements
-            const loginBtn = document.getElementById('loginBtn');
-            const signupBtn = document.getElementById('signupBtn');
-            const loginModal = document.getElementById('loginModal');
-            const signupModal = document.getElementById('signupModal');
-            const closeLoginModal = document.getElementById('closeLoginModal');
-            const closeSignupModal = document.getElementById('closeSignupModal');
-            const showSignupFromLogin = document.getElementById('showSignupFromLogin');
-            const showLoginFromSignup = document.getElementById('showLoginFromSignup');
-            const logoutBtn = document.getElementById('logoutBtn');
-            const authButtons = document.getElementById('authButtons');
-            const userInfo = document.getElementById('userInfo');
-            const userName = document.getElementById('userName');
-            const userAvatar = document.getElementById('userAvatar');
-            const matchesGrid = document.getElementById('matchesGrid');
-            const notificationBadge = document.getElementById('notificationBadge');
-            const chatContainer = document.getElementById('chatContainer');
-            const closeChat = document.getElementById('closeChat');
-            const chatMessages = document.getElementById('chatMessages');
-            const chatInput = document.getElementById('chatInput');
-            const sendChatMsg = document.getElementById('sendChatMsg');
-            const chatRecipient = document.getElementById('chatRecipient');
+            // Filter out current user
+            const otherUsers = users.filter(user => 
+                !currentUser || user.id !== currentUser.id
+            );
             
-            // Current user state
-            let currentUser = null;
-            let currentRecipient = null;
-            
-            // Check if user is already logged in
-            const storedUser = localStorage.getItem('currentUser');
-            if (storedUser) {
-                currentUser = JSON.parse(storedUser);
-                showUserInfo(currentUser);
-                loadUserProfiles();
-            }
-            
-            // Show login modal
-            loginBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                signupModal.style.display = 'none';
-                loginModal.style.display = 'block';
-            });
-            
-            // Show signup modal
-            signupBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginModal.style.display = 'none';
-                signupModal.style.display = 'block';
-            });
-            
-            // Close modals
-            closeLoginModal.addEventListener('click', function() {
-                loginModal.style.display = 'none';
-            });
-            
-            closeSignupModal.addEventListener('click', function() {
-                signupModal.style.display = 'none';
-            });
-            
-            // Switch between login and signup
-            showSignupFromLogin.addEventListener('click', function(e) {
-                e.preventDefault();
-                loginModal.style.display = 'none';
-                signupModal.style.display = 'block';
-            });
-            
-            showLoginFromSignup.addEventListener('click', function(e) {
-                e.preventDefault();
-                signupModal.style.display = 'none';
-                loginModal.style.display = 'block';
-            });
-            
-            // Close modals when clicking outside
-            window.addEventListener('click', function(e) {
-                if (e.target === loginModal) {
-                    loginModal.style.display = 'none';
-                }
-                if (e.target === signupModal) {
-                    signupModal.style.display = 'none';
-                }
-            });
-            
-            // Close chat
-            closeChat.addEventListener('click', function() {
-                chatContainer.style.display = 'none';
-            });
-            
-            // Login form submission
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                const users = JSON.parse(localStorage.getItem('rakhiUsers'));
-                const user = users.find(u => u.email === email && u.password === password);
-                
-                if (user) {
-                    currentUser = user;
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                    showUserInfo(user);
-                    alert('Login successful! Welcome back, ' + user.name);
-                    this.reset();
-                    loginModal.style.display = 'none';
-                    loadUserProfiles();
-                } else {
-                    alert('Invalid email or password. Please try again.');
-                }
-            });
-            
-            // Signup form submission
-            document.getElementById('signupForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('signupName').value;
-                const email = document.getElementById('signupEmail').value;
-                const password = document.getElementById('signupPassword').value;
-                const role = document.getElementById('signupRole').value;
-                const about = document.getElementById('signupAbout').value;
-                
-                const users = JSON.parse(localStorage.getItem('rakhiUsers'));
-                if (users.some(u => u.email === email)) {
-                    alert('Email already registered. Please login instead.');
-                    return;
-                }
-                
-                const newUser = {
-                    id: Date.now().toString(),
-                    name,
-                    email,
-                    password,
-                    role,
-                    about,
-                    joined: new Date().toISOString()
-                };
-                
-                users.push(newUser);
-                localStorage.setItem('rakhiUsers', JSON.stringify(users));
-                
-                currentUser = newUser;
-                localStorage.setItem('currentUser', JSON.stringify(newUser));
-                
-                showUserInfo(newUser);
-                alert('Account created successfully! Welcome to Rakhi Bandhan Connect, ' + name);
-                this.reset();
-                signupModal.style.display = 'none';
-                loadUserProfiles();
-            });
-            
-            // Logout functionality
-            logoutBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                localStorage.removeItem('currentUser');
-                currentUser = null;
-                userInfo.style.display = 'none';
-                authButtons.style.display = 'flex';
-                matchesGrid.innerHTML = '<p class="info-text">Please login to see other users</p>';
-            });
-            
-            // Show user info in header
-            function showUserInfo(user) {
-                userInfo.style.display = 'flex';
-                authButtons.style.display = 'none';
-                userName.textContent = user.name;
-                userAvatar.textContent = user.name.charAt(0);
-            }
-            
-            // Load user profiles in matching section
-            function loadUserProfiles() {
-                if (!currentUser) {
-                    matchesGrid.innerHTML = '<p class="info-text">Please login to see other users</p>';
-                    return;
-                }
-                
-                const users = JSON.parse(localStorage.getItem('rakhiUsers'));
-                const connections = JSON.parse(localStorage.getItem('connections'));
-                
-                // Filter out current user
-                const otherUsers = users.filter(user => user.id !== currentUser.id);
-                
-                if (otherUsers.length === 0) {
-                    matchesGrid.innerHTML = '<p class="info-text">No other users found. Invite your friends to join!</p>';
-                    return;
-                }
-                
-                matchesGrid.innerHTML = '';
-                
+            if (otherUsers.length === 0) {
+                html = `
+                    <div class="empty-state">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>No Other Users Registered Yet</h3>
+                        <p>You are currently the only registered user. Invite others to join!</p>
+                    </div>
+                `;
+            } else {
                 otherUsers.forEach(user => {
-                    const matchCard = document.createElement('div');
-                    matchCard.className = 'match-card';
-                    
-                    // Check if connected
                     const isConnected = connections.some(conn => 
-                        (conn.user1 === currentUser.id && conn.user2 === user.id) ||
+                        (conn.user1 === currentUser.id && conn.user2 === user.id) || 
                         (conn.user1 === user.id && conn.user2 === currentUser.id)
                     );
                     
-                    matchCard.innerHTML = `
-                        <div class="match-header">
-                            <div class="match-avatar">
-                                ${user.name.charAt(0)}
+                    html += `
+                        <div class="user-card">
+                            <div class="user-header">
+                                <div class="user-avatar-lg">${user.name.charAt(0)}</div>
+                                <h3 class="user-name">${user.name}</h3>
+                                <div class="user-gender">${user.gender.charAt(0).toUpperCase() + user.gender.slice(1)}, ${Math.floor(Math.random() * 10) + 20}</div>
                             </div>
-                            <h3>${user.name}</h3>
-                            <p>Looking for ${user.role === 'brother' ? 'Sister' : 'Brother'}</p>
-                        </div>
-                        <div class="match-info">
-                            <p>${user.about || 'No description provided'}</p>
-                            
-                            <div class="match-stats">
-                                <div class="stat">
-                                    <div class="stat-value">${Math.floor(Math.random() * 30) + 70}%</div>
-                                    <div class="stat-label">Match Score</div>
+                            <div class="user-body">
+                                <div class="user-info">
+                                    <span><i class="fas fa-map-marker-alt"></i> ${user.location}</span>
+                                    <span><i class="fas fa-star"></i> ${(Math.random() + 4).toFixed(1)}</span>
                                 </div>
-                                <div class="stat">
-                                    <div class="stat-value">${new Date(user.joined).toLocaleDateString()}</div>
-                                    <div class="stat-label">Joined</div>
+                                <p class="user-bio">Looking for a ${user.lookingFor === 'brother' ? 'brother' : 'sister'} to celebrate Rakhi with.</p>
+                                <div class="user-actions">
+                                    ${isConnected ? `
+                                        <button class="action-btn btn-message" onclick="openChat('${user.id}')">
+                                            <i class="fas fa-comment"></i> Message
+                                        </button>
+                                    ` : `
+                                        <button class="action-btn btn-connect" onclick="sendRequest('${user.id}')">
+                                            <i class="fas fa-user-plus"></i> Connect
+                                        </button>
+                                    `}
                                 </div>
-                            </div>
-                            
-                            <div class="match-actions">
-                                ${isConnected ? 
-                                    `<button class="match-btn message-btn" data-userid="${user.id}">
-                                        <i class="fas fa-comment"></i> Message
-                                    </button>` :
-                                    `<button class="match-btn connect-btn" data-userid="${user.id}">
-                                        <i class="fas fa-link"></i> Connect
-                                    </button>`
-                                }
                             </div>
                         </div>
                     `;
-                    
-                    matchesGrid.appendChild(matchCard);
                 });
                 
-                // Add event listeners to buttons
-                document.querySelectorAll('.connect-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const userId = this.getAttribute('data-userid');
-                        sendConnectionRequest(userId);
-                    });
-                });
-                
-                document.querySelectorAll('.message-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const userId = this.getAttribute('data-userid');
-                        startChat(userId);
-                    });
-                });
+                html += '</div>';
             }
             
-            // Send connection request
-            function sendConnectionRequest(recipientId) {
-                if (!currentUser) return;
-                
-                const recipient = JSON.parse(localStorage.getItem('rakhiUsers'))
-                    .find(user => user.id === recipientId);
-                
-                if (!recipient) return;
-                
-                // Simulate email notification
-                alert(`Connection request sent to ${recipient.name}! A notification email has been sent to ${recipient.email}.`);
-                
-                // Add connection
-                const connections = JSON.parse(localStorage.getItem('connections'));
-                connections.push({
-                    id: Date.now().toString(),
-                    user1: currentUser.id,
-                    user2: recipientId,
-                    status: 'accepted', // Simulating immediate acceptance for demo
-                    date: new Date().toISOString()
-                });
-                localStorage.setItem('connections', JSON.stringify(connections));
-                
-                // Update UI
-                loadUserProfiles();
-                
-                // Update notification badge
-                let count = parseInt(notificationBadge.textContent);
-                notificationBadge.textContent = count + 1;
+            usersContainer.innerHTML = html;
+        }
+
+        // Send connection request
+        function sendRequest(userId) {
+            if (!currentUser) {
+                alert('Please log in to send connection requests');
+                return;
             }
             
-            // Start chat with a user
-            function startChat(recipientId) {
-                if (!currentUser) return;
-                
-                const recipient = JSON.parse(localStorage.getItem('rakhiUsers'))
-                    .find(user => user.id === recipientId);
-                
-                if (!recipient) return;
-                
-                currentRecipient = recipient;
-                chatRecipient.textContent = `Chat with ${recipient.name}`;
-                chatMessages.innerHTML = '';
-                
-                // Load chat history
-                const messages = JSON.parse(localStorage.getItem('messages'));
-                const chatHistory = messages.filter(msg => 
-                    (msg.sender === currentUser.id && msg.recipient === recipientId) ||
-                    (msg.sender === recipientId && msg.recipient === currentUser.id)
-                );
-                
-                // Display messages
-                chatHistory.forEach(msg => {
-                    const messageDiv = document.createElement('div');
-                    messageDiv.className = msg.sender === currentUser.id ? 
-                        'chat-msg sent-msg' : 'chat-msg received-msg';
-                    messageDiv.textContent = msg.text;
-                    chatMessages.appendChild(messageDiv);
+            const receiver = users.find(u => u.id === userId);
+            
+            // Create notification
+            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            
+            const newNotification = {
+                id: Date.now().toString(),
+                type: 'connection',
+                senderId: currentUser.id,
+                receiverId: userId,
+                message: `${currentUser.name} wants to connect with you as a Rakhi sibling`,
+                timestamp: new Date().toISOString(),
+                status: 'pending'
+            };
+            
+            notifications.push(newNotification);
+            localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
+            
+            alert(`Connection request sent to ${receiver.name}! They will be notified.`);
+            renderNotifications();
+        }
+
+        // Render notifications
+        function renderNotifications() {
+            if (!currentUser) {
+                notificationsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-bell-slash"></i>
+                        <h3>Log In to See Notifications</h3>
+                        <p>Please log in to view and manage your notifications.</p>
+                        <button class="btn btn-primary" id="loginFromNotif" style="margin-top: 1.5rem;">
+                            <i class="fas fa-sign-in-alt"></i> Log In
+                        </button>
+                    </div>
+                `;
+                document.getElementById('loginFromNotif').addEventListener('click', function() {
+                    loginBtn.click();
                 });
-                
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Show chat container
-                chatContainer.style.display = 'flex';
+                return;
             }
             
-            // Send chat message
-            sendChatMsg.addEventListener('click', function() {
-                if (!currentUser || !currentRecipient) return;
+            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            const userNotifications = notifications.filter(n => n.receiverId === currentUser.id);
+            
+            if (userNotifications.length === 0) {
+                notificationsContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-bell-slash"></i>
+                        <h3>No Notifications Yet</h3>
+                        <p>You'll receive notifications here when other users want to connect with you as Rakhi siblings.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '<div class="notification-list">';
+            
+            userNotifications.forEach(notif => {
+                const sender = users.find(u => u.id === notif.senderId);
                 
-                const messageText = chatInput.value.trim();
-                if (!messageText) return;
-                
-                // Create message element
-                const messageDiv = document.createElement('div');
-                messageDiv.className = 'chat-msg sent-msg';
-                messageDiv.textContent = messageText;
-                chatMessages.appendChild(messageDiv);
-                
-                // Save message
-                const messages = JSON.parse(localStorage.getItem('messages'));
-                messages.push({
-                    id: Date.now().toString(),
-                    sender: currentUser.id,
-                    recipient: currentRecipient.id,
-                    text: messageText,
-                    timestamp: new Date().toISOString()
-                });
-                localStorage.setItem('messages', JSON.stringify(messages));
-                
-                // Clear input
-                chatInput.value = '';
-                
-                // Scroll to bottom
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Simulate response after delay
-                setTimeout(() => {
-                    const responses = [
-                        "That's wonderful! How have you been?",
-                        "I'm excited to celebrate Rakhi with you this year!",
-                        "What kind of rakhi do you like?",
-                        "We should plan our virtual celebration soon!",
-                        "I'm really glad we connected through this platform."
-                    ];
-                    
-                    const response = responses[Math.floor(Math.random() * responses.length)];
-                    
-                    const responseDiv = document.createElement('div');
-                    responseDiv.className = 'chat-msg received-msg';
-                    responseDiv.textContent = response;
-                    chatMessages.appendChild(responseDiv);
-                    
-                    // Save response
-                    messages.push({
-                        id: Date.now().toString(),
-                        sender: currentRecipient.id,
-                        recipient: currentUser.id,
-                        text: response,
-                        timestamp: new Date().toISOString()
-                    });
-                    localStorage.setItem('messages', JSON.stringify(messages));
-                    
-                    // Scroll to bottom
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 2000);
+                html += `
+                    <div class="notification-item ${notif.status === 'pending' ? 'unread' : ''}">
+                        <div class="notification-avatar">${sender ? sender.name.charAt(0) : '?'}</div>
+                        <div class="notification-content">
+                            <h4>${notif.type === 'connection' ? 'Connection Request' : 'New Message'}</h4>
+                            <p><strong>${sender ? sender.name : 'Unknown User'}</strong> ${notif.message}</p>
+                            <div class="notification-time">${new Date(notif.timestamp).toLocaleString()}</div>
+                        </div>
+                        ${notif.status === 'pending' ? `
+                            <div class="notification-actions">
+                                <button class="notif-btn btn-accept" onclick="acceptRequest('${notif.id}')"><i class="fas fa-check"></i></button>
+                                <button class="notif-btn btn-reject" onclick="rejectRequest('${notif.id}')"><i class="fas fa-times"></i></button>
+                            </div>
+                        ` : notif.status === 'accepted' ? `
+                            <div class="notification-actions">
+                                <button class="notif-btn" onclick="openChat('${sender.id}')"><i class="fas fa-comment"></i></button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
             });
             
-            // Enter key to send message
-            chatInput.addEventListener('keypress', function(e) {
+            html += '</div>';
+            notificationsContainer.innerHTML = html;
+        }
+
+        // Accept connection request
+        function acceptRequest(notificationId) {
+            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            const notifIndex = notifications.findIndex(n => n.id === notificationId);
+            
+            if (notifIndex !== -1) {
+                // Update notification status
+                notifications[notifIndex].status = 'accepted';
+                localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
+                
+                // Create connection
+                const connection = {
+                    user1: notifications[notifIndex].senderId,
+                    user2: notifications[notifIndex].receiverId,
+                    connectedAt: new Date().toISOString()
+                };
+                
+                connections.push(connection);
+                localStorage.setItem('rakhiConnections', JSON.stringify(connections));
+                
+                alert(`You are now connected as Rakhi siblings!`);
+                renderNotifications();
+                renderUsers();
+                renderChat();
+            }
+        }
+
+        // Reject connection request
+        function rejectRequest(notificationId) {
+            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            const notifIndex = notifications.findIndex(n => n.id === notificationId);
+            
+            if (notifIndex !== -1) {
+                notifications[notifIndex].status = 'rejected';
+                localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
+                renderNotifications();
+            }
+        }
+
+        // Open chat with user
+        function openChat(userId) {
+            if (!currentUser) {
+                alert('Please log in to chat');
+                return;
+            }
+            
+            const user = users.find(u => u.id === userId);
+            
+            // Create chat container if it doesn't exist
+            chatContainer.innerHTML = `
+                <div class="chat-container">
+                    <div class="chat-sidebar">
+                        <h3><i class="fas fa-user-friends"></i> My Rakhi Siblings</h3>
+                        <div class="sibling-list" id="siblingList">
+                            <!-- Siblings will be listed here -->
+                        </div>
+                    </div>
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <div class="sibling-avatar">${user.name.charAt(0)}</div>
+                            <div class="chat-header-info">
+                                <h3>${user.name}</h3>
+                                <div class="sibling-status">
+                                    <div class="status-dot"></div>
+                                    <span>Online</span>
+                                </div>
+                            </div>
+                            <div class="chat-header-actions">
+                                <div class="chat-header-btn">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="chat-header-btn">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <!-- Messages will appear here -->
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="messageInput" placeholder="Type a message...">
+                            <button id="sendMessageBtn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Render siblings list
+            renderSiblingsList();
+            
+            // Render messages
+            renderMessages(userId);
+            
+            // Set up message sending
+            document.getElementById('sendMessageBtn').addEventListener('click', function() {
+                sendMessage(userId);
+            });
+            
+            document.getElementById('messageInput').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
-                    sendChatMsg.click();
+                    sendMessage(userId);
                 }
             });
-        });
+        }
+
+        // Render siblings list
+        function renderSiblingsList() {
+            if (!currentUser) return;
+            
+            const siblingList = document.getElementById('siblingList');
+            if (!siblingList) return;
+            
+            let html = '';
+            
+            // Get all connected siblings
+            const userConnections = connections.filter(conn => 
+                conn.user1 === currentUser.id || conn.user2 === currentUser.id
+            );
+            
+            userConnections.forEach(conn => {
+                const siblingId = conn.user1 === currentUser.id ? conn.user2 : conn.user1;
+                const sibling = users.find(u => u.id === siblingId);
+                
+                if (sibling) {
+                    html += `
+                        <div class="sibling-item" onclick="openChat('${sibling.id}')">
+                            <div class="sibling-avatar">${sibling.name.charAt(0)}</div>
+                            <div class="sibling-info">
+                                <div class="sibling-name">${sibling.name}</div>
+                                <div class="sibling-status">
+                                    <div class="status-dot"></div>
+                                    <span>Online</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            siblingList.innerHTML = html || '<p>No siblings yet</p>';
+        }
+
+        // Render messages
+        function renderMessages(userId) {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            
+            const chatId = [currentUser.id, userId].sort().join('_');
+            const messageHistory = messages[chatId] || [];
+            
+            let html = '';
+            
+            messageHistory.forEach(msg => {
+                const isCurrentUser = msg.senderId === currentUser.id;
+                const sender = users.find(u => u.id === msg.senderId);
+                
+                html += `
+                    <div class="message ${isCurrentUser ? 'sent' : 'received'}">
+                        <p>${msg.text}</p>
+                        <div class="message-time">${new Date(msg.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                    </div>
+                `;
+            });
+            
+            chatMessages.innerHTML = html || '<p>No messages yet. Start the conversation!</p>';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Send message
+        function sendMessage(receiverId) {
+            if (!currentUser) return;
+            
+            const messageInput = document.getElementById('messageInput');
+            const messageText = messageInput.value.trim();
+            
+            if (!messageText) return;
+            
+            // Create chat ID (combination of both user IDs sorted)
+            const chatId = [currentUser.id, receiverId].sort().join('_');
+            
+            // Initialize message history if needed
+            if (!messages[chatId]) {
+                messages[chatId] = [];
+            }
+            
+            // Add new message
+            const newMessage = {
+                id: Date.now().toString(),
+                senderId: currentUser.id,
+                receiverId: receiverId,
+                text: messageText,
+                timestamp: new Date().toISOString()
+            };
+            
+            messages[chatId].push(newMessage);
+            localStorage.setItem('rakhiMessages', JSON.stringify(messages));
+            
+            // Clear input and re-render messages
+            messageInput.value = '';
+            renderMessages(receiverId);
+            
+            // Create notification for receiver
+            const sender = users.find(u => u.id === currentUser.id);
+            const receiver = users.find(u => u.id === receiverId);
+            
+            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            
+            const newNotification = {
+                id: Date.now().toString(),
+                type: 'message',
+                senderId: currentUser.id,
+                receiverId: receiverId,
+                message: `${sender.name} sent you a message: "${messageText}"`,
+                timestamp: new Date().toISOString(),
+                status: 'unread'
+            };
+            
+            notifications.push(newNotification);
+            localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
+        }
+
+        // Render chat section
+        function renderChat() {
+            if (!currentUser) {
+                chatContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <h3>Log In to Access Messages</h3>
+                        <p>Please log in to chat with your Rakhi siblings.</p>
+                        <button class="btn btn-primary" id="loginFromChat" style="margin-top: 1.5rem;">
+                            <i class="fas fa-sign-in-alt"></i> Log In
+                        </button>
+                    </div>
+                `;
+                document.getElementById('loginFromChat').addEventListener('click', function() {
+                    loginBtn.click();
+                });
+                return;
+            }
+            
+            // Check if user has any connections
+            const userConnections = connections.filter(conn => 
+                conn.user1 === currentUser.id || conn.user2 === currentUser.id
+            );
+            
+            if (userConnections.length === 0) {
+                chatContainer.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-comments"></i>
+                        <h3>No Connections Yet</h3>
+                        <p>Connect with a Rakhi sibling to start messaging.</p>
+                        <button class="btn btn-primary" id="findSiblingFromChat" style="margin-top: 1.5rem;">
+                            <i class="fas fa-search"></i> Find Sibling
+                        </button>
+                    </div>
+                `;
+                document.getElementById('findSiblingFromChat').addEventListener('click', function() {
+                    document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+                });
+            } else {
+                // Open chat with the first sibling by default
+                const firstSiblingId = userConnections[0].user1 === currentUser.id ? 
+                    userConnections[0].user2 : userConnections[0].user1;
+                openChat(firstSiblingId);
+            }
+        }
     </script>
 </body>
 </html>
