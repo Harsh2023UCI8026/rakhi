@@ -954,7 +954,7 @@
                 <li><a href="#how-it-works">How It Works</a></li>
             </ul>
         </nav>
-        <div class="user-actions">
+        <div class="user-actions" id="userActions">
             <button class="btn btn-login" id="loginBtn">Login</button>
             <button class="btn btn-signup" id="registerBtn">Register</button>
         </div>
@@ -1153,10 +1153,11 @@
 
     <script>
         // Real user data storage
-        const users = JSON.parse(localStorage.getItem('rakhiUsers')) || [];
-        const currentUser = JSON.parse(localStorage.getItem('currentRakhiUser')) || null;
-        const connections = JSON.parse(localStorage.getItem('rakhiConnections')) || [];
-        const messages = JSON.parse(localStorage.getItem('rakhiMessages')) || {};
+        let users = JSON.parse(localStorage.getItem('rakhiUsers')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentRakhiUser')) || null;
+        let connections = JSON.parse(localStorage.getItem('rakhiConnections')) || [];
+        let messages = JSON.parse(localStorage.getItem('rakhiMessages')) || {};
+        let notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
 
         // DOM Elements
         const registrationSection = document.getElementById('registrationSection');
@@ -1169,6 +1170,7 @@
         const findSiblingBtn2 = document.getElementById('findSiblingBtn2');
         const registerNowBtn = document.getElementById('registerNowBtn');
         const completeRegistration = document.getElementById('completeRegistration');
+        const userActions = document.getElementById('userActions');
 
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
@@ -1181,7 +1183,7 @@
         // Update header based on login state
         function updateHeader() {
             if (currentUser) {
-                document.querySelector('.user-actions').innerHTML = `
+                userActions.innerHTML = `
                     <div class="user-profile">
                         <div class="user-avatar">${currentUser.name.charAt(0)}</div>
                         <span>${currentUser.name}</span>
@@ -1189,20 +1191,27 @@
                     <button class="btn btn-login" id="logoutBtn">Logout</button>
                 `;
                 document.getElementById('logoutBtn').addEventListener('click', logout);
+            } else {
+                userActions.innerHTML = `
+                    <button class="btn btn-login" id="loginBtn">Login</button>
+                    <button class="btn btn-signup" id="registerBtn">Register</button>
+                `;
+                document.getElementById('loginBtn').addEventListener('click', login);
+                document.getElementById('registerBtn').addEventListener('click', showRegistration);
             }
         }
 
+        // Show registration form
+        function showRegistration() {
+            registrationSection.style.display = 'block';
+            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
+        }
+
         // Register button click
-        registerBtn.addEventListener('click', function() {
-            registrationSection.style.display = 'block';
-            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
-        });
+        registerNowBtn.addEventListener('click', showRegistration);
+        registerBtn.addEventListener('click', showRegistration);
 
-        registerNowBtn.addEventListener('click', function() {
-            registrationSection.style.display = 'block';
-            document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
-        });
-
+        // Find sibling button
         findSiblingBtn.addEventListener('click', function() {
             document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
         });
@@ -1225,6 +1234,12 @@
                 return;
             }
             
+            // Check if email already exists
+            if (users.some(user => user.email === email)) {
+                alert('This email is already registered');
+                return;
+            }
+            
             const newUser = {
                 id: Date.now().toString(),
                 name,
@@ -1240,7 +1255,8 @@
             localStorage.setItem('rakhiUsers', JSON.stringify(users));
             
             // Log in the new user
-            localStorage.setItem('currentRakhiUser', JSON.stringify(newUser));
+            currentUser = newUser;
+            localStorage.setItem('currentRakhiUser', JSON.stringify(currentUser));
             
             alert('Registration successful! You are now logged in.');
             registrationSection.style.display = 'none';
@@ -1248,8 +1264,8 @@
             renderUsers();
         });
 
-        // Login button
-        loginBtn.addEventListener('click', function() {
+        // Login function
+        function login() {
             const email = prompt('Enter your email:');
             if (!email) return;
             
@@ -1259,23 +1275,34 @@
             const user = users.find(u => u.email === email && u.password === password);
             
             if (user) {
-                localStorage.setItem('currentRakhiUser', JSON.stringify(user));
+                currentUser = user;
+                localStorage.setItem('currentRakhiUser', JSON.stringify(currentUser));
                 updateHeader();
                 renderUsers();
+                renderNotifications();
+                renderChat();
                 alert(`Welcome back, ${user.name}!`);
             } else {
                 alert('Invalid email or password');
             }
-        });
+        }
 
         // Logout
         function logout() {
+            currentUser = null;
             localStorage.removeItem('currentRakhiUser');
-            location.reload();
+            updateHeader();
+            renderUsers();
+            renderNotifications();
+            renderChat();
+            alert('You have been logged out');
         }
 
         // Render real users
         function renderUsers() {
+            // Refresh users from localStorage
+            users = JSON.parse(localStorage.getItem('rakhiUsers')) || [];
+            
             if (users.length === 0) {
                 usersContainer.innerHTML = `
                     <div class="empty-state">
@@ -1287,10 +1314,7 @@
                         </button>
                     </div>
                 `;
-                document.getElementById('registerNowBtn').addEventListener('click', function() {
-                    registrationSection.style.display = 'block';
-                    document.querySelector('#find-sibling').scrollIntoView({behavior: 'smooth'});
-                });
+                document.getElementById('registerNowBtn').addEventListener('click', showRegistration);
                 return;
             }
             
@@ -1312,8 +1336,8 @@
             } else {
                 otherUsers.forEach(user => {
                     const isConnected = connections.some(conn => 
-                        (conn.user1 === currentUser.id && conn.user2 === user.id) || 
-                        (conn.user1 === user.id && conn.user2 === currentUser.id)
+                        (conn.user1 === currentUser?.id && conn.user2 === user.id) || 
+                        (conn.user1 === user.id && conn.user2 === currentUser?.id)
                     );
                     
                     html += `
@@ -1330,12 +1354,16 @@
                                 </div>
                                 <p class="user-bio">Looking for a ${user.lookingFor === 'brother' ? 'brother' : 'sister'} to celebrate Rakhi with.</p>
                                 <div class="user-actions">
-                                    ${isConnected ? `
+                                    ${isConnected && currentUser ? `
                                         <button class="action-btn btn-message" onclick="openChat('${user.id}')">
                                             <i class="fas fa-comment"></i> Message
                                         </button>
-                                    ` : `
+                                    ` : currentUser ? `
                                         <button class="action-btn btn-connect" onclick="sendRequest('${user.id}')">
+                                            <i class="fas fa-user-plus"></i> Connect
+                                        </button>
+                                    ` : `
+                                        <button class="action-btn btn-connect" onclick="alert('Please log in to connect')">
                                             <i class="fas fa-user-plus"></i> Connect
                                         </button>
                                     `}
@@ -1361,7 +1389,7 @@
             const receiver = users.find(u => u.id === userId);
             
             // Create notification
-            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
             
             const newNotification = {
                 id: Date.now().toString(),
@@ -1382,6 +1410,9 @@
 
         // Render notifications
         function renderNotifications() {
+            // Refresh notifications
+            notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            
             if (!currentUser) {
                 notificationsContainer.innerHTML = `
                     <div class="empty-state">
@@ -1393,13 +1424,10 @@
                         </button>
                     </div>
                 `;
-                document.getElementById('loginFromNotif').addEventListener('click', function() {
-                    loginBtn.click();
-                });
+                document.getElementById('loginFromNotif').addEventListener('click', login);
                 return;
             }
             
-            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
             const userNotifications = notifications.filter(n => n.receiverId === currentUser.id);
             
             if (userNotifications.length === 0) {
@@ -1446,7 +1474,7 @@
 
         // Accept connection request
         function acceptRequest(notificationId) {
-            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
             const notifIndex = notifications.findIndex(n => n.id === notificationId);
             
             if (notifIndex !== -1) {
@@ -1455,6 +1483,8 @@
                 localStorage.setItem('rakhiNotifications', JSON.stringify(notifications));
                 
                 // Create connection
+                connections = JSON.parse(localStorage.getItem('rakhiConnections')) || [];
+                
                 const connection = {
                     user1: notifications[notifIndex].senderId,
                     user2: notifications[notifIndex].receiverId,
@@ -1473,7 +1503,7 @@
 
         // Reject connection request
         function rejectRequest(notificationId) {
-            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
             const notifIndex = notifications.findIndex(n => n.id === notificationId);
             
             if (notifIndex !== -1) {
@@ -1559,6 +1589,7 @@
             let html = '';
             
             // Get all connected siblings
+            connections = JSON.parse(localStorage.getItem('rakhiConnections')) || [];
             const userConnections = connections.filter(conn => 
                 conn.user1 === currentUser.id || conn.user2 === currentUser.id
             );
@@ -1590,6 +1621,9 @@
         function renderMessages(userId) {
             const chatMessages = document.getElementById('chatMessages');
             if (!chatMessages) return;
+            
+            // Get messages
+            messages = JSON.parse(localStorage.getItem('rakhiMessages')) || {};
             
             const chatId = [currentUser.id, userId].sort().join('_');
             const messageHistory = messages[chatId] || [];
@@ -1625,6 +1659,8 @@
             const chatId = [currentUser.id, receiverId].sort().join('_');
             
             // Initialize message history if needed
+            messages = JSON.parse(localStorage.getItem('rakhiMessages')) || {};
+            
             if (!messages[chatId]) {
                 messages[chatId] = [];
             }
@@ -1646,17 +1682,16 @@
             renderMessages(receiverId);
             
             // Create notification for receiver
-            const sender = users.find(u => u.id === currentUser.id);
             const receiver = users.find(u => u.id === receiverId);
             
-            const notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
+            notifications = JSON.parse(localStorage.getItem('rakhiNotifications')) || [];
             
             const newNotification = {
                 id: Date.now().toString(),
                 type: 'message',
                 senderId: currentUser.id,
                 receiverId: receiverId,
-                message: `${sender.name} sent you a message: "${messageText}"`,
+                message: `${currentUser.name} sent you a message: "${messageText}"`,
                 timestamp: new Date().toISOString(),
                 status: 'unread'
             };
@@ -1678,13 +1713,12 @@
                         </button>
                     </div>
                 `;
-                document.getElementById('loginFromChat').addEventListener('click', function() {
-                    loginBtn.click();
-                });
+                document.getElementById('loginFromChat').addEventListener('click', login);
                 return;
             }
             
             // Check if user has any connections
+            connections = JSON.parse(localStorage.getItem('rakhiConnections')) || [];
             const userConnections = connections.filter(conn => 
                 conn.user1 === currentUser.id || conn.user2 === currentUser.id
             );
@@ -1710,6 +1744,12 @@
                 openChat(firstSiblingId);
             }
         }
+        
+        // Make functions global for HTML onclick
+        window.sendRequest = sendRequest;
+        window.acceptRequest = acceptRequest;
+        window.rejectRequest = rejectRequest;
+        window.openChat = openChat;
     </script>
 </body>
 </html>
