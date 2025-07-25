@@ -1092,33 +1092,6 @@
             font-size: 16px;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-
-        .floating {
-            animation: float 4s ease-in-out infinite;
-        }
-
         /* Responsive Design */
         @media (max-width: 992px) {
             .hero-content {
@@ -1523,6 +1496,7 @@
             if (storedUser) {
                 currentUser = JSON.parse(storedUser);
                 showUserInfo(currentUser);
+                loadUserProfiles();
             }
             
             // Show login modal
@@ -1668,7 +1642,7 @@
                 const otherUsers = users.filter(user => user.id !== currentUser.id);
                 
                 if (otherUsers.length === 0) {
-                    matchesGrid.innerHTML = '<p class="info-text">No users found. Invite others to join!</p>';
+                    matchesGrid.innerHTML = '<p class="info-text">No other users found. Invite your friends to join!</p>';
                     return;
                 }
                 
@@ -1873,9 +1847,6 @@
                     sendChatMsg.click();
                 }
             });
-            
-            // Initial load
-            loadUserProfiles();
         });
     </script>
 </body>
